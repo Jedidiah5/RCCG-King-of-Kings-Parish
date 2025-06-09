@@ -4,8 +4,8 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ServiceTimes from './components/ServiceTimes';
 import pastorAdeboye from './assets/DaddyGO.jpg'
-import pastorFolu from '../src/assets/MummyGO.jpg'
-import pastorOdesola from '../src/assetspublic/asstGO.jpg'
+import pastorFolu from './assets/MummyGO.jpg'
+import pastorOdesola from './assets/asstGO.jpg'
 
 
 // Animation Component Wrapper
@@ -283,25 +283,25 @@ const About = () => (
                 name: "Pastor Enoch Adejare Adeboye",
                 position: "General Overseer",
                 description: "The General Overseer of the Redeemed Christian Church of God worldwide since 1981. Under his leadership, RCCG has grown to become one of the largest Pentecostal churches in the world.",
-                image: "pastorAdeboye"
+                image: pastorAdeboye
               },
               {
                 name: "Pastor Folu Adeboye",
                 position: "Mother in Israel",
                 description: "The wife of the General Overseer and Mother in Israel of RCCG. She serves as a spiritual mother to millions of women across the globe.",
-                image: "pastorFolu"
+                image: pastorFolu
               },
               {
                 name: "Pastor Johnson Odesola",
                 position: "Assistant General Overseer",
                 description: "Serves as the Assistant General Overseer (Admin/Personnel) of RCCG, overseeing the administrative and personnel matters of the church.",
-                image: "pastorOdesola"
+                image: pastorOdesola
               }
             ].map((member, index) => (
               <div key={index} className="bg-white p-6 rounded-lg shadow-md text-center">
                 <div className="w-32 h-32 mx-auto bg-gray-200 rounded-full mb-4 overflow-hidden">
                   <img 
-                    src={`/${member.image}`} 
+                    src={member.image} 
                     alt={member.name}
                     className="w-full h-full object-cover"
                   />
@@ -322,18 +322,42 @@ const Programs = () => (
   <div className="min-h-screen">
     <AnimatedSection>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-4xl font-bold text-center mb-8">Our Programs</h1>
+        <h1 className="text-4xl font-bold text-center mb-8 text-purple-300">Our Programs</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <AnimatedSection delay={300}>
             <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
-              <h2 className="text-2xl font-semibold mb-4">Sunday Service</h2>
-              <p className="text-gray-600">Add service details here</p>
+              <h2 className="text-2xl font-semibold mb-4 text-purple-300">Sunday Service</h2>
+              <p className="text-gray-600">Sunday school starts around 7am, the main sercice begins around 9 and ends 11am.</p>
             </div>
           </AnimatedSection>
           <AnimatedSection delay={600}>
             <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
-              <h2 className="text-2xl font-semibold mb-4">Bible Study</h2>
-              <p className="text-gray-600">Add Bible study details here</p>
+              <h2 className="text-2xl font-semibold mb-4 text-purple-300">Digging deep</h2>
+              <p className="text-gray-600">We come together to dig deep into the word of God as you attend may you be blessed.</p>
+            </div>
+          </AnimatedSection>
+          <AnimatedSection delay={900}>
+            <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
+              <h2 className="text-2xl font-semibold mb-4">Faith clinic</h2>
+              <p className="text-gray-600">We come together to pray on behalf of our nation and the church as you attend may you be blessed.</p>
+            </div>
+          </AnimatedSection>
+          <AnimatedSection delay={1200}>
+            <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
+              <h2 className="text-2xl font-semibold mb-4">Extravagant Praise</h2>
+              <p className="text-gray-600">Once a month on the 3rd thursday we come to praise and give thanks to God</p>
+            </div>
+          </AnimatedSection>
+          <AnimatedSection delay={1500}>
+            <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
+              <h2 className="text-2xl font-semibold mb-4">Youth Service</h2>
+              <p className="text-gray-600">We come together to dig deep into the word of God as you attend may you be blessed.</p>
+            </div>
+          </AnimatedSection>
+          <AnimatedSection delay={1800}>
+            <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
+              <h2 className="text-2xl font-semibold mb-4">Thanksgiving Service</h2>
+              <p className="text-gray-600">We come together to dig deep into the word of God as you attend may you be blessed.</p>
             </div>
           </AnimatedSection>
         </div>
