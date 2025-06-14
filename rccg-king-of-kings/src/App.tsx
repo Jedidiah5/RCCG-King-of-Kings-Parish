@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -83,9 +83,12 @@ const Home = () => (
                     <div className="p-6">
                       <h3 className="text-xl font-semibold text-primary mb-2">{event.title}</h3>
                       <p className="text-gray-600 mb-4">{event.description}</p>
-                      <button className="text-primary font-semibold hover:text-secondary transition duration-300">
+                      <Link
+                        to="/programs"
+                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-opacity-90 transition duration-300"
+                      >
                         Learn More →
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -116,9 +119,12 @@ const Home = () => (
                     <div className="p-6">
                       <h3 className="text-xl font-semibold text-primary mb-2">{event.title}</h3>
                       <p className="text-gray-600 mb-4">{event.description}</p>
-                      <button className="text-primary font-semibold hover:text-secondary transition duration-300">
+                      <Link
+                        to="/programs"
+                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-opacity-90 transition duration-300"
+                      >
                         Learn More →
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </div>
