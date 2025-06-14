@@ -1,5 +1,5 @@
 import React from 'react';
-import { ClockIcon } from '@heroicons/react/24/outline';
+// import { ClockIcon } from '@heroicons/react/24/outline';
 
 const ServiceTimes = () => {
   const services = [
@@ -35,7 +35,7 @@ const ServiceTimes = () => {
               <h3 className="text-xl font-semibold text-primary mb-4">{service.name}</h3>
               <div className="space-y-4">
                 <div className="flex items-center text-gray-600">
-                  <ClockIcon className="h-5 w-5 mr-2" />
+                  {/* <ClockIcon className="h-5 w-5 mr-2" /> */}
                   <span>{service.time}</span>
                 </div>
                 <p className="text-gray-600">{service.description}</p>
