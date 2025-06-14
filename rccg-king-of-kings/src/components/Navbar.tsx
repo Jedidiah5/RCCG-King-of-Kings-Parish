@@ -36,7 +36,7 @@ const Navbar = () => {
                     key={link.name}
                     to={link.path}
                     className={`relative px-2 sm:px-3 py-2 text-sm font-medium transition-colors duration-300 whitespace-nowrap ${
-                      isActive ? 'text-purple-300' : 'text-white hover:text-white'
+                      isActive ? '' : 'text-white hover:text-white'
                     }`}
                   >
                     {link.name}

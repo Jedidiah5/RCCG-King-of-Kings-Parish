@@ -11,7 +11,7 @@ import youthImg from './youthImg.jpeg'
 import thanksgiving from './thanksgiving.jpg'
 
 // Animation Component Wrapper
-const AnimatedSection = ({ children, delay = 0 }) => {
+const AnimatedSection = ({ children, delay = 0, className = '' }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const AnimatedSection = ({ children, delay = 0 }) => {
   }, [delay]);
 
   return (
-    <div className={`transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+    <div className={`transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${className}`}>
       {children}
     </div>
   );
@@ -52,7 +52,7 @@ const Home = () => (
     </AnimatedSection>
     
     {/* Upcoming Events Section */}
-    <AnimatedSection delay={600}>
+    <AnimatedSection delay={600} className="hidden md:block">
       <div className="bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Upcoming Events</h2>
@@ -152,19 +152,32 @@ const Home = () => (
 
     {/* Latest Sermons Section */}
     <AnimatedSection delay={900}>
-      <div className="bg-white py-16">
+      <div className="bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Latest Sermons</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 overflow-x-auto">
-            {[1, 2].map((sermon) => (
-              <div key={sermon} className="bg-gray-50 rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
-                <h3 className="text-xl font-semibold text-primary mb-4">Sermon Title</h3>
-                <p className="text-gray-600 mb-4">Sermon description and key points go here.</p>
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Recent Sermons</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              {
+                title: "RCCG HOLY GHOST SERVICE",
+                description: "Live recording for Holy Ghost Service",
+                date: "06/06/2025",
+                link: "https://www.youtube.com/live/F24Y-duChYE?si=nsoNtTcXUaEhiAc6"
+              },
+              {
+                title: "RCCG JUNE 1st 2025 | THANKSGIVING SERVICE",
+                description: "Live recording for Special Thanksgiving.",
+                date: "01/06/2025",
+                link: "https://www.youtube.com/live/un3i8uHJla8?si=Zki67Qs1rXLWoaJP"
+              }
+            ].map((sermon, index) => (
+              <div key={index} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
+                <h3 className="text-xl font-semibold text-primary mb-4">{sermon.title}</h3>
+                <p className="text-gray-600 mb-4">{sermon.description}</p>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-500">Date: DD/MM/YYYY</span>
-                  <button className="text-primary font-semibold hover:text-secondary transition duration-300">
+                  <span className="text-sm text-gray-500">Date: {sermon.date}</span>
+                  <a href={sermon.link} className="text-primary font-semibold hover:text-secondary transition duration-300">
                     Watch Now →
-                  </button>
+                  </a>
                 </div>
               </div>
             ))}
@@ -178,12 +191,28 @@ const Home = () => (
 const About = () => (
   <div className="min-h-screen">
     <AnimatedSection>
-      <div className="relative h-[400px] bg-primary">
+      {/* <div className="relative h-[400px] bg-primary">
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="relative h-full flex items-center justify-center text-center text-white px-4">
           <h1 className="text-4xl md:text-5xl font-bold">About Us</h1>
         </div>
-      </div>
+      </div> */}
+          <div className="relative h-[400px] bg-primary overflow-hidden">
+      {/* Background image */}
+      <div
+        className="absolute inset-0 w-full h-full bg-cover bg-center z-0"
+        style={{
+          backgroundImage: "url('https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSZ1AgxqtUBaCEBrRwtKTZoIQjLCU5VGAglt5JYJW1iDnSiBMbVt9Y7ifiaFU70MZh4lPiZhaYfoO-MJIIxPf00-w')",
+          opacity: 0.4,
+        }}
+      ></div>
+      {/* Blue background overlay (bg-primary) is already set on parent */}
+      {/* Black overlay */}
+      <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="relative h-full flex items-center justify-center text-center text-white px-4">
+          <h1 className="text-4xl md:text-5xl font-bold">About Us</h1>
+        </div>
+    </div>
     </AnimatedSection>
 
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -324,7 +353,7 @@ const Programs = () => (
   <div className="min-h-screen">
     <AnimatedSection>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-4xl font-bold text-center mb-8 text-purple-700">Our Programs</h1>
+        <h1 className="text-4xl font-bold text-center mb-8 text-secondary">Our Programs</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <AnimatedSection delay={300}>
             <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
