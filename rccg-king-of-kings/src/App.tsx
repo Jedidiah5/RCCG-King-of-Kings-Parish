@@ -6,7 +6,9 @@ import ServiceTimes from './components/ServiceTimes';
 import pastorAdeboye from './assets/DaddyGO.jpg'
 import pastorFolu from './assets/MummyGO.jpg'
 import pastorOdesola from './assets/asstGO.jpg'
-
+import praiseImg from './praiseImg.png'
+import youthImg from './youthImg.jpeg'
+import thanksgiving from './thanksgiving.jpg'
 
 // Animation Component Wrapper
 const AnimatedSection = ({ children, delay = 0 }) => {
@@ -60,23 +62,23 @@ const Home = () => (
                 {
                   title: "Extravagant Praise",
                   description: "Every 3rd Thursday of the month we come together to celebrate God (5-6pm)",
-                  image: "praise.jpg"
+                  image: praiseImg
                 },
                 {
                   title: "Youth Service",
                   description: "Every 3rd Sunday of the month the youth take charge of the service",
-                  image: "bible-study.jpg"
+                  image: youthImg
                 },
                 {
                   title: "Thanksgiving Service",
                   description: "Every First Sunday of the month ",
-                  image: "youth.jpg"
+                  image: thanksgiving
                 }
               ].map((event, index) => (
                 <div key={index} className="flex-none w-full md:w-1/2 lg:w-1/3 px-4">
                   <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300">
                     <div className="h-48 bg-gray-200">
-                      {/* Add event image here */}
+                    <img src={event.image} alt={event.title} className="h-48 w-full object-cover" />
                     </div>
                     <div className="p-6">
                       <h3 className="text-xl font-semibold text-primary mb-2">{event.title}</h3>
@@ -322,41 +324,41 @@ const Programs = () => (
   <div className="min-h-screen">
     <AnimatedSection>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-4xl font-bold text-center mb-8 text-purple-300">Our Programs</h1>
+        <h1 className="text-4xl font-bold text-center mb-8 text-purple-700">Our Programs</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <AnimatedSection delay={300}>
             <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
-              <h2 className="text-2xl font-semibold mb-4 text-purple-300">Sunday Service</h2>
+              <h2 className="text-2xl font-bold mb-4 text-primary">Sunday Service</h2>
               <p className="text-gray-600">Sunday school starts around 7am, the main sercice begins around 9 and ends 11am.</p>
             </div>
           </AnimatedSection>
           <AnimatedSection delay={600}>
             <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
-              <h2 className="text-2xl font-semibold mb-4 text-purple-300">Digging deep</h2>
+              <h2 className="text-2xl font-bold mb-4 text-primary">Digging deep</h2>
               <p className="text-gray-600">We come together to dig deep into the word of God as you attend may you be blessed.</p>
             </div>
           </AnimatedSection>
           <AnimatedSection delay={900}>
             <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
-              <h2 className="text-2xl font-semibold mb-4">Faith clinic</h2>
+              <h2 className="text-2xl font-bold mb-4 text-primary">Faith clinic</h2>
               <p className="text-gray-600">We come together to pray on behalf of our nation and the church as you attend may you be blessed.</p>
             </div>
           </AnimatedSection>
           <AnimatedSection delay={1200}>
             <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
-              <h2 className="text-2xl font-semibold mb-4">Extravagant Praise</h2>
+              <h2 className="text-2xl font-bold mb-4 text-primary">Extravagant Praise</h2>
               <p className="text-gray-600">Once a month on the 3rd thursday we come to praise and give thanks to God</p>
             </div>
           </AnimatedSection>
           <AnimatedSection delay={1500}>
             <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
-              <h2 className="text-2xl font-semibold mb-4">Youth Service</h2>
+              <h2 className="text-2xl font-bold mb-4 text-primary">Youth Service</h2>
               <p className="text-gray-600">We come together to dig deep into the word of God as you attend may you be blessed.</p>
             </div>
           </AnimatedSection>
           <AnimatedSection delay={1800}>
             <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
-              <h2 className="text-2xl font-semibold mb-4">Thanksgiving Service</h2>
+              <h2 className="text-2xl font-bold mb-4 text-primary">Thanksgiving Service</h2>
               <p className="text-gray-600">We come together to dig deep into the word of God as you attend may you be blessed.</p>
             </div>
           </AnimatedSection>

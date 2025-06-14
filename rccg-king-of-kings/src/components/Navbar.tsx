@@ -2,6 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { BuildingOffice2Icon } from '@heroicons/react/24/solid';
+import logo from '../logo.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,8 +21,8 @@ const Navbar = () => {
       <div className="w-full px-2 sm:px-4 md:px-6 lg:px-8 relative">
         <div className="flex items-center justify-between h-16 relative">
           <div className="flex items-center z-10">
-            <Link to="/" className="text-lg sm:text-xl font-bold text-white whitespace-nowrap">
-              RCCG King of Kings
+            <Link to="/" className="text-white hover:text-purple-300 transition-colors duration-300">
+              <img src={logo} alt="RCCG Logo" className="h-7 w-7 object-contain rounded-full" />
             </Link>
           </div>
           
