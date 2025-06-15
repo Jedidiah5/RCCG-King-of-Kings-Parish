@@ -25,10 +25,10 @@ const Hero = () => {
           </p>
           <div className="space-x-4">
             <a
-              href="#services"
+              href="/programs"
               className="bg-white text-primary px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300"
             >
-              Our Services
+              Our Programs
             </a>
             <a
               href="/contact"
