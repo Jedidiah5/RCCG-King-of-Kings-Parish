@@ -9,7 +9,6 @@ import pastorOdesola from './assets/asstGO.jpg'
 import praiseImg from './praiseImg.png'
 import youthImg from './youthImg.jpeg'
 import thanksgiving from './thanksgiving.jpg'
-import { FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
 
 // Animation Component Wrapper
 const AnimatedSection = ({ children, delay = 0, className = '' }) => {
@@ -43,158 +42,155 @@ const LoadingAnimation = () => (
 
 // Pages
 const Home = () => (
-  <div className="min-h-screen bg-gray-50">
-    <Navbar />
-    <div className="pt-16">
-      <AnimatedSection>
-        <Hero />
-      </AnimatedSection>
-      
-      <AnimatedSection delay={300}>
-        <ServiceTimes />
-      </AnimatedSection>
-      
-      {/* Upcoming Events Section */}
-      <AnimatedSection delay={600} className="hidden md:block">
-        <div className="bg-gray-50 py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Upcoming Events</h2>
-            <div className="relative overflow-hidden">
-              <div className="flex animate-carousel">
-                {[
-                  {
-                    title: "Extravagant Praise",
-                    description: "Every 3rd Thursday of the month we come together to celebrate God (5-6pm)",
-                    image: praiseImg
-                  },
-                  {
-                    title: "Youth Service",
-                    description: "Every 3rd Sunday of the month the youth take charge of the service",
-                    image: youthImg
-                  },
-                  {
-                    title: "Thanksgiving Service",
-                    description: "Every First Sunday of the month ",
-                    image: thanksgiving
-                  }
-                ].map((event, index) => (
-                  <div key={index} className="flex-none w-full md:w-1/2 lg:w-1/3 px-4">
-                    <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300">
-                      <div className="h-48 bg-gray-200">
-                      <img src={event.image} alt={event.title} className="h-48 w-full object-cover" />
-                      </div>
-                      <div className="p-6">
-                        <h3 className="text-xl font-semibold text-primary mb-2">{event.title}</h3>
-                        <p className="text-gray-600 mb-4">{event.description}</p>
-                        <Link
-                          to="/programs"
-                          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-opacity-90 transition duration-300"
-                        >
-                          Learn More →
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                {/* Duplicate events for infinite scroll effect */}
-                {[
-                  {
-                    title: "Extravagant Praise",
-                    description: "Every 3rd Thursday of the month we come together to celebrate God (5-6pm)",
-                    image: "praise.jpg"
-                  },
-                  {
-                    title: "Bible Study",
-                    description: "Join us every Wednesday evening for an in-depth study of God's word (7-8:30pm)",
-                    image: "bible-study.jpg"
-                  },
-                  {
-                    title: "Youth Fellowship",
-                    description: "Monthly gathering for young people to connect and grow in faith (Last Saturday, 4-6pm)",
-                    image: "youth.jpg"
-                  }
-                ].map((event, index) => (
-                  <div key={`duplicate-${index}`} className="flex-none w-full md:w-1/2 lg:w-1/3 px-4">
-                    <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300">
-                      <div className="h-48 bg-gray-200">
-                        {/* Add event image here */}
-                      </div>
-                      <div className="p-6">
-                        <h3 className="text-xl font-semibold text-primary mb-2">{event.title}</h3>
-                        <p className="text-gray-600 mb-4">{event.description}</p>
-                        <Link
-                          to="/programs"
-                          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-opacity-90 transition duration-300"
-                        >
-                          Learn More →
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </AnimatedSection>
-
-      <style>
-        {`
-          @keyframes carousel {
-            0% {
-              transform: translateX(0);
-            }
-            100% {
-              transform: translateX(-50%);
-            }
-          }
-          .animate-carousel {
-            animation: carousel 30s linear infinite;
-            display: flex;
-            width: 200%;
-          }
-          .animate-carousel:hover {
-            animation-play-state: paused;
-          }
-        `}
-      </style>
-
-      {/* Latest Sermons Section */}
-      <AnimatedSection delay={900}>
-        <div className="bg-gray-50 py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Recent Sermons</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+  <div>
+    <AnimatedSection>
+      <Hero />
+    </AnimatedSection>
+    
+    <AnimatedSection delay={300}>
+      <ServiceTimes />
+    </AnimatedSection>
+    
+    {/* Upcoming Events Section */}
+    <AnimatedSection delay={600} className="hidden md:block">
+      <div className="bg-gray-50 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Upcoming Events</h2>
+          <div className="relative overflow-hidden">
+            <div className="flex animate-carousel">
               {[
                 {
-                  title: "RCCG HOLY GHOST SERVICE",
-                  description: "Live recording for Holy Ghost Service",
-                  date: "06/06/2025",
-                  link: "https://www.youtube.com/live/F24Y-duChYE?si=nsoNtTcXUaEhiAc6"
+                  title: "Extravagant Praise",
+                  description: "Every 3rd Thursday of the month we come together to celebrate God (5-6pm)",
+                  image: praiseImg
                 },
                 {
-                  title: "RCCG JUNE 1st 2025 | THANKSGIVING SERVICE",
-                  description: "Live recording for Special Thanksgiving.",
-                  date: "01/06/2025",
-                  link: "https://www.youtube.com/live/un3i8uHJla8?si=Zki67Qs1rXLWoaJP"
+                  title: "Youth Service",
+                  description: "Every 3rd Sunday of the month the youth take charge of the service",
+                  image: youthImg
+                },
+                {
+                  title: "Thanksgiving Service",
+                  description: "Every First Sunday of the month ",
+                  image: thanksgiving
                 }
-              ].map((sermon, index) => (
-                <div key={index} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
-                  <h3 className="text-xl font-semibold text-primary mb-4">{sermon.title}</h3>
-                  <p className="text-gray-600 mb-4">{sermon.description}</p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-500">Date: {sermon.date}</span>
-                    <a href={sermon.link} className="text-primary font-semibold hover:text-secondary transition duration-300">
-                      Watch Now →
-                    </a>
+              ].map((event, index) => (
+                <div key={index} className="flex-none w-full md:w-1/2 lg:w-1/3 px-4">
+                  <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300">
+                    <div className="h-48 bg-gray-200">
+                    <img src={event.image} alt={event.title} className="h-48 w-full object-cover" />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-semibold text-primary mb-2">{event.title}</h3>
+                      <p className="text-gray-600 mb-4">{event.description}</p>
+                      <Link
+                        to="/programs"
+                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-opacity-90 transition duration-300"
+                      >
+                        Learn More →
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {/* Duplicate events for infinite scroll effect */}
+              {[
+                {
+                  title: "Extravagant Praise",
+                  description: "Every 3rd Thursday of the month we come together to celebrate God (5-6pm)",
+                  image: "praise.jpg"
+                },
+                {
+                  title: "Bible Study",
+                  description: "Join us every Wednesday evening for an in-depth study of God's word (7-8:30pm)",
+                  image: "bible-study.jpg"
+                },
+                {
+                  title: "Youth Fellowship",
+                  description: "Monthly gathering for young people to connect and grow in faith (Last Saturday, 4-6pm)",
+                  image: "youth.jpg"
+                }
+              ].map((event, index) => (
+                <div key={`duplicate-${index}`} className="flex-none w-full md:w-1/2 lg:w-1/3 px-4">
+                  <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300">
+                    <div className="h-48 bg-gray-200">
+                      {/* Add event image here */}
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-semibold text-primary mb-2">{event.title}</h3>
+                      <p className="text-gray-600 mb-4">{event.description}</p>
+                      <Link
+                        to="/programs"
+                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-opacity-90 transition duration-300"
+                      >
+                        Learn More →
+                      </Link>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
-      </AnimatedSection>
-    </div>
+      </div>
+    </AnimatedSection>
+
+    <style>
+      {`
+        @keyframes carousel {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        .animate-carousel {
+          animation: carousel 30s linear infinite;
+          display: flex;
+          width: 200%;
+        }
+        .animate-carousel:hover {
+          animation-play-state: paused;
+        }
+      `}
+    </style>
+
+    {/* Latest Sermons Section */}
+    <AnimatedSection delay={900}>
+      <div className="bg-gray-50 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Recent Sermons</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              {
+                title: "RCCG HOLY GHOST SERVICE",
+                description: "Live recording for Holy Ghost Service",
+                date: "06/06/2025",
+                link: "https://www.youtube.com/live/F24Y-duChYE?si=nsoNtTcXUaEhiAc6"
+              },
+              {
+                title: "RCCG JUNE 1st 2025 | THANKSGIVING SERVICE",
+                description: "Live recording for Special Thanksgiving.",
+                date: "01/06/2025",
+                link: "https://www.youtube.com/live/un3i8uHJla8?si=Zki67Qs1rXLWoaJP"
+              }
+            ].map((sermon, index) => (
+              <div key={index} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
+                <h3 className="text-xl font-semibold text-primary mb-4">{sermon.title}</h3>
+                <p className="text-gray-600 mb-4">{sermon.description}</p>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-500">Date: {sermon.date}</span>
+                  <a href={sermon.link} className="text-primary font-semibold hover:text-secondary transition duration-300">
+                    Watch Now →
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </AnimatedSection>
   </div>
 );
 
@@ -360,51 +356,50 @@ const About = () => (
 );
 
 const Programs = () => (
-  <div className="min-h-screen bg-gray-50">
-    <Navbar />
-    <div className="pt-16">
+  <div className="min-h-screen">
+    <AnimatedSection>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-4xl font-bold text-center mb-12">Our Programs</h1>
+        <h1 className="text-4xl font-bold text-center mb-8 text-secondary">Our Programs</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <AnimatedSection delay={300}>
             <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
               <h2 className="text-2xl font-bold mb-4 text-primary">Sunday Service</h2>
-              <p className="text-gray-600">The service begins at 7am with sunday school fllowed by the main service from (Time 8-11am)</p>
+              <p className="text-gray-600">Sunday school starts around 7am, the main sercice begins around 9 and ends 11am.</p>
             </div>
           </AnimatedSection>
           <AnimatedSection delay={600}>
             <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
               <h2 className="text-2xl font-bold mb-4 text-primary">Digging deep</h2>
-              <p className="text-gray-600">We come together to dig deep into the word of God as you attend may you be blessed (Time 5-6pm)</p>
+              <p className="text-gray-600">We come together to dig deep into the word of God as you attend may you be blessed.</p>
             </div>
           </AnimatedSection>
           <AnimatedSection delay={900}>
             <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
               <h2 className="text-2xl font-bold mb-4 text-primary">Faith clinic</h2>
-              <p className="text-gray-600">We come together to pray on behalf of our nation and the church as you attend may you be blessed (Time 5-6pm)</p>
+              <p className="text-gray-600">We come together to pray on behalf of our nation and the church as you attend may you be blessed.</p>
             </div>
           </AnimatedSection>
           <AnimatedSection delay={1200}>
             <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
               <h2 className="text-2xl font-bold mb-4 text-primary">Extravagant Praise</h2>
-              <p className="text-gray-600">Once a month on the 3rd thursday we come to praise and give thanks to God (Time 5-6pm)</p>
+              <p className="text-gray-600">Once a month on the 3rd thursday we come to praise and give thanks to God</p>
             </div>
           </AnimatedSection>
           <AnimatedSection delay={1500}>
             <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
               <h2 className="text-2xl font-bold mb-4 text-primary">Youth Service</h2>
-              <p className="text-gray-600">We come together to dig deep into the word of God as you attend may you be blessed (Time 8-11am)</p>
+              <p className="text-gray-600">We come together to dig deep into the word of God as you attend may you be blessed.</p>
             </div>
           </AnimatedSection>
           <AnimatedSection delay={1800}>
             <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
               <h2 className="text-2xl font-bold mb-4 text-primary">Thanksgiving Service</h2>
-              <p className="text-gray-600">We come together to dig deep into the word of God as you attend may you be blessed (Time 8-11am)</p>
+              <p className="text-gray-600">We come together to dig deep into the word of God as you attend may you be blessed.</p>
             </div>
           </AnimatedSection>
         </div>
       </div>
-    </div>
+    </AnimatedSection>
   </div>
 );
 
@@ -428,55 +423,28 @@ const Pastor = () => (
 );
 
 const Contact = () => (
-  <div className="min-h-screen bg-gray-50">
-    <Navbar />
-    <div className="pt-16">
+  <div className="min-h-screen">
+    <AnimatedSection>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-4xl font-bold text-center mb-12">Contact Us</h1>
+        <h1 className="text-4xl font-bold text-center mb-8">Contact Us</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <AnimatedSection delay={300}>
             <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
               <h2 className="text-2xl font-semibold mb-4">Get in Touch</h2>
               <form className="space-y-4">
                 <div>
-                  <input
-                    type="text"
-                    placeholder="Your Name"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
+                  <label className="block text-sm font-medium text-gray-700">Name</label>
+                  <input type="text" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary" />
                 </div>
                 <div>
-                  <input
-                    type="email"
-                    placeholder="Your Email"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
+                  <label className="block text-sm font-medium text-gray-700">Email</label>
+                  <input type="email" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary" />
                 </div>
                 <div>
-                  <input
-                    type="tel"
-                    placeholder="Your Phone Number"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
+                  <label className="block text-sm font-medium text-gray-700">Message</label>
+                  <textarea rows={4} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"></textarea>
                 </div>
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Subject"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
-                </div>
-                <div>
-                  <textarea
-                    placeholder="Your Message"
-                    rows={4}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                  ></textarea>
-                </div>
-                <button
-                  type="submit"
-                  className="bg-primary text-white px-6 py-2 rounded-md hover:bg-primary-dark transition duration-300"
-                >
+                <button type="submit" className="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-secondary">
                   Send Message
                 </button>
               </form>
@@ -486,31 +454,15 @@ const Contact = () => (
             <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
               <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
               <div className="space-y-4">
-                <p className="text-gray-600 flex items-center gap-2">
-                  <FaMapMarkerAlt className="text-primary" />
-                  <a 
-                    href="https://www.google.com/maps/search/?api=1&query=Emerald+Estate+Lokogoma+Abuja"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Emerald Estate Lokogoma
-                  </a>
-                </p>
-                <p className="text-gray-600 flex items-center gap-2">
-                  <FaPhone className="text-primary" />
-                  08036162680
-                </p>
-                <p className="text-gray-600 flex items-center gap-2">
-                  <FaEnvelope className="text-primary" />
-                  rccgkingofkings@gmail.com
-                </p>
+                <p className="text-gray-600">Emerald Estate Lokogoma</p>
+                <p className="text-gray-600">08036162680</p>
+                <p className="text-gray-600">rccgkingofkings@gmail.com</p>
               </div>
             </div>
           </AnimatedSection>
         </div>
       </div>
-    </div>
+    </AnimatedSection>
   </div>
 );
 
