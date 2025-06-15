@@ -9,4 +9,9 @@ export default defineConfig({
       external: ['react-icons/fa'],
     },
   },
+  resolve: {
+    alias: {
+      'react-icons/fa': 'react-icons/fa/index.js'
+    }
+  }
 })
