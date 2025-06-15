@@ -42,7 +42,7 @@ const LoadingAnimation = () => (
 
 // Pages
 const Home = () => (
-  <div>
+  <div className="pt-16">
     <AnimatedSection>
       <Hero />
     </AnimatedSection>
@@ -356,7 +356,7 @@ const About = () => (
 );
 
 const Programs = () => (
-  <div className="min-h-screen">
+  <div className="min-h-screen pt-16">
     <AnimatedSection>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-4xl font-bold text-center mb-8 text-secondary">Our Programs</h1>
@@ -423,7 +423,7 @@ const Pastor = () => (
 );
 
 const Contact = () => (
-  <div className="min-h-screen">
+  <div className="min-h-screen pt-16">
     <AnimatedSection>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-4xl font-bold text-center mb-8">Contact Us</h1>
@@ -431,20 +431,43 @@ const Contact = () => (
           <AnimatedSection delay={300}>
             <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
               <h2 className="text-2xl font-semibold mb-4">Get in Touch</h2>
-              <form className="space-y-4">
+              <form className="space-y-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Name</label>
-                  <input type="text" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary" />
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                  <input 
+                    type="text" 
+                    placeholder="Enter your full name"
+                    className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20 transition duration-200 ease-in-out" 
+                  />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Email</label>
-                  <input type="email" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary" />
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <input 
+                    type="email" 
+                    placeholder="Enter your email address"
+                    className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20 transition duration-200 ease-in-out" 
+                  />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Message</label>
-                  <textarea rows={4} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"></textarea>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                  <input 
+                    type="tel" 
+                    placeholder="Enter your phone number"
+                    className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20 transition duration-200 ease-in-out" 
+                  />
                 </div>
-                <button type="submit" className="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-secondary">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                  <textarea 
+                    rows={4} 
+                    placeholder="Type your message here..."
+                    className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20 transition duration-200 ease-in-out resize-none"
+                  ></textarea>
+                </div>
+                <button 
+                  type="submit" 
+                  className="w-full bg-primary text-white py-3 px-6 rounded-lg font-medium hover:bg-secondary transform hover:scale-[1.02] transition duration-200 ease-in-out shadow-md hover:shadow-lg"
+                >
                   Send Message
                 </button>
               </form>
@@ -454,7 +477,18 @@ const Contact = () => (
             <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
               <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
               <div className="space-y-4">
-                <p className="text-gray-600">Emerald Estate Lokogoma</p>
+                <a 
+                  href="https://www.google.com/maps/search/?api=1&query=Emerald+Estate+Lokogoma+Abuja" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-gray-600 hover:text-primary transition-colors duration-200 flex items-center"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  Emerald Estate Lokogoma
+                </a>
                 <p className="text-gray-600">08036162680</p>
                 <p className="text-gray-600">rccgkingofkings@gmail.com</p>
               </div>
