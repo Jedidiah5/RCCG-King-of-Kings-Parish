@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -30,12 +31,12 @@ const Hero = () => {
             >
               Our Programs
             </a>
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               className="border-2 border-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-primary transition duration-300"
             >
               Join Us
-            </a>
+            </Link>
           </div>
         </div>
       </div>
