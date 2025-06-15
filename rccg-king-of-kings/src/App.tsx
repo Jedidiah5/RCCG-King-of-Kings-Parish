@@ -9,7 +9,7 @@ import pastorOdesola from './assets/asstGO.jpg'
 import praiseImg from './praiseImg.png'
 import youthImg from './youthImg.jpeg'
 import thanksgiving from './thanksgiving.jpg'
-import { FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa/index.js';
+import { FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
 
 // Animation Component Wrapper
 const AnimatedSection = ({ children, delay = 0, className = '' }) => {
