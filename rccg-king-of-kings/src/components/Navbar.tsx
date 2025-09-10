@@ -3,11 +3,13 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { BuildingOffice2Icon } from '@heroicons/react/24/solid';
+import { useAuth } from '../contexts/AuthContext';
 import logo from '../logo.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { currentUser } = useAuth();
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -48,6 +50,18 @@ const Navbar = () => {
               })}
             </div>
           </div>
+
+          {/* Admin Link */}
+          {currentUser && (
+            <div className="hidden md:block">
+              <Link
+                to="/admin"
+                className="text-white hover:text-purple-300 transition-colors duration-300 text-sm font-medium"
+              >
+                Admin
+              </Link>
+            </div>
+          )}
 
           {/* Mobile menu button */}
           <div className="md:hidden">
@@ -98,6 +112,15 @@ const Navbar = () => {
               </Link>
             );
           })}
+          {currentUser && (
+            <Link
+              to="/admin"
+              className="block px-3 py-2 text-base font-medium transition-colors duration-300 whitespace-nowrap text-white hover:bg-secondary"
+              onClick={() => setIsOpen(false)}
+            >
+              Admin
+            </Link>
+          )}
         </div>
       </div>
     </nav>

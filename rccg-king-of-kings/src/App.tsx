@@ -3,6 +3,13 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ServiceTimes from './components/ServiceTimes';
+import AdminLogin from './components/AdminLogin';
+import AdminDashboard from './components/AdminDashboard';
+import ProtectedRoute from './components/ProtectedRoute';
+import DynamicEvents from './components/DynamicEvents';
+import DynamicSermons from './components/DynamicSermons';
+import DynamicAnnouncements from './components/DynamicAnnouncements';
+import { AuthProvider } from './contexts/AuthContext';
 import pastorAdeboye from './assets/DaddyGO.jpg'
 import pastorFolu from './assets/MummyGO.jpg'
 import pastorOdesola from './assets/asstGO.jpg'
@@ -50,87 +57,18 @@ const Home = () => (
     <AnimatedSection delay={300}>
       <ServiceTimes />
     </AnimatedSection>
+
+    {/* Dynamic Announcements */}
+    <AnimatedSection delay={200} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <DynamicAnnouncements />
+    </AnimatedSection>
     
     {/* Upcoming Events Section */}
     <AnimatedSection delay={600} className="hidden md:block">
       <div className="bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Upcoming Events</h2>
-          <div className="relative overflow-hidden">
-            <div className="flex animate-carousel">
-              {[
-                {
-                  title: "Extravagant Praise",
-                  description: "Every 3rd Thursday of the month we come together to celebrate God (5-6pm)",
-                  image: praiseImg
-                },
-                {
-                  title: "Youth Service",
-                  description: "Every 3rd Sunday of the month the youth take charge of the service",
-                  image: youthImg
-                },
-                {
-                  title: "Thanksgiving Service",
-                  description: "Every First Sunday of the month ",
-                  image: thanksgiving
-                }
-              ].map((event, index) => (
-                <div key={index} className="flex-none w-full md:w-1/2 lg:w-1/3 px-4">
-                  <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300">
-                    <div className="h-48 bg-gray-200">
-                    <img src={event.image} alt={event.title} className="h-48 w-full object-cover" />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold text-primary mb-2">{event.title}</h3>
-                      <p className="text-gray-600 mb-4">{event.description}</p>
-                      <Link
-                        to="/programs"
-                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-opacity-90 transition duration-300"
-                      >
-                        Learn More →
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ))}
-              {/* Duplicate events for infinite scroll effect */}
-              {[
-                {
-                  title: "Extravagant Praise",
-                  description: "Every 3rd Thursday of the month we come together to celebrate God (5-6pm)",
-                  image: "praise.jpg"
-                },
-                {
-                  title: "Bible Study",
-                  description: "Join us every Wednesday evening for an in-depth study of God's word (7-8:30pm)",
-                  image: "bible-study.jpg"
-                },
-                {
-                  title: "Youth Fellowship",
-                  description: "Monthly gathering for young people to connect and grow in faith (Last Saturday, 4-6pm)",
-                  image: "youth.jpg"
-                }
-              ].map((event, index) => (
-                <div key={`duplicate-${index}`} className="flex-none w-full md:w-1/2 lg:w-1/3 px-4">
-                  <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300">
-                    <div className="h-48 bg-gray-200">
-                      {/* Add event image here */}
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold text-primary mb-2">{event.title}</h3>
-                      <p className="text-gray-600 mb-4">{event.description}</p>
-                      <Link
-                        to="/programs"
-                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-opacity-90 transition duration-300"
-                      >
-                        Learn More →
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <DynamicEvents />
         </div>
       </div>
     </AnimatedSection>
@@ -161,33 +99,7 @@ const Home = () => (
       <div className="bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Recent Sermons</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              {
-                title: "RCCG HOLY GHOST SERVICE",
-                description: "Live recording for Holy Ghost Service",
-                date: "06/06/2025",
-                link: "https://www.youtube.com/live/F24Y-duChYE?si=nsoNtTcXUaEhiAc6"
-              },
-              {
-                title: "RCCG JUNE 1st 2025 | THANKSGIVING SERVICE",
-                description: "Live recording for Special Thanksgiving.",
-                date: "01/06/2025",
-                link: "https://www.youtube.com/live/un3i8uHJla8?si=Zki67Qs1rXLWoaJP"
-              }
-            ].map((sermon, index) => (
-              <div key={index} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
-                <h3 className="text-xl font-semibold text-primary mb-4">{sermon.title}</h3>
-                <p className="text-gray-600 mb-4">{sermon.description}</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-500">Date: {sermon.date}</span>
-                  <a href={sermon.link} className="text-primary font-semibold hover:text-secondary transition duration-300">
-                    Watch Now →
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
+          <DynamicSermons />
         </div>
       </div>
     </AnimatedSection>
@@ -513,18 +425,29 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <div className="bg-gray-50 w-screen overflow-x-hidden">
-        {isLoading && <LoadingAnimation />}
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/programs" element={<Programs />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div className="bg-gray-50 w-screen overflow-x-hidden">
+          {isLoading && <LoadingAnimation />}
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/programs" element={<Programs />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route 
+              path="/admin" 
+              element={
+                <ProtectedRoute>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              } 
+            />
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 
