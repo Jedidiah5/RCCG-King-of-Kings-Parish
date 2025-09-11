@@ -6,6 +6,7 @@ import ServiceTimes from './components/ServiceTimes';
 import AdminLogin from './components/AdminLogin';
 import AdminDashboard from './components/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
+import Settings from './components/Settings';
 import DynamicEvents from './components/DynamicEvents';
 import DynamicSermons from './components/DynamicSermons';
 import DynamicAnnouncements from './components/DynamicAnnouncements';
@@ -435,6 +436,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/programs" element={<Programs />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/settings" element={<Settings />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route 
               path="/admin" 
