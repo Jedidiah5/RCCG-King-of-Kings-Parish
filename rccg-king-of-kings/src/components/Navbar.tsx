@@ -1,17 +1,15 @@
 import React from 'react';
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Bars3Icon, XMarkIcon, UserCircleIcon, Cog6ToothIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { BuildingOffice2Icon } from '@heroicons/react/24/solid';
 import { useAuth } from '../contexts/AuthContext';
 import logo from '../logo.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const location = useLocation();
-  const { currentUser, logout } = useAuth();
-  const profileRef = useRef<HTMLDivElement>(null);
+  const { currentUser } = useAuth();
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -19,29 +17,6 @@ const Navbar = () => {
     { name: 'Programs', path: '/programs' },
     { name: 'Contact', path: '/contact' },
   ];
-
-  // Close profile dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
-        setIsProfileOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  const handleLogout = async () => {
-    try {
-      await logout();
-      setIsProfileOpen(false);
-    } catch (error) {
-      console.error('Failed to log out:', error);
-    }
-  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-primary text-white shadow-lg w-full overflow-x-hidden z-50">
@@ -76,58 +51,17 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Profile Dropdown */}
-          <div className="hidden md:block relative" ref={profileRef}>
-            <button
-              onClick={() => setIsProfileOpen(!isProfileOpen)}
-              className="flex items-center space-x-2 text-white hover:text-purple-300 transition-colors duration-300 text-sm font-medium p-2 rounded-md hover:bg-white/10"
-            >
-              <UserCircleIcon className="w-6 h-6" />
-              <span className="hidden lg:block">Profile</span>
-            </button>
-
-            {/* Profile Dropdown Menu */}
-            {isProfileOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
-                <div className="px-4 py-2 border-b border-gray-100">
-                  <p className="text-sm font-medium text-gray-900">
-                    {currentUser?.email || 'Guest User'}
-                  </p>
-                  <p className="text-xs text-gray-500">Account Settings</p>
-                </div>
-                
-                <Link
-                  to="/settings"
-                  className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
-                  onClick={() => setIsProfileOpen(false)}
-                >
-                  <Cog6ToothIcon className="w-4 h-4 mr-3" />
-                  Settings
-                </Link>
-                
-                {currentUser && (
-                  <Link
-                    to="/admin"
-                    className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
-                    onClick={() => setIsProfileOpen(false)}
-                  >
-                    <BuildingOffice2Icon className="w-4 h-4 mr-3" />
-                    Admin Dashboard
-                  </Link>
-                )}
-                
-                {currentUser && (
-                  <button
-                    onClick={handleLogout}
-                    className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-200"
-                  >
-                    <ArrowRightOnRectangleIcon className="w-4 h-4 mr-3" />
-                    Sign Out
-                  </button>
-                )}
-              </div>
-            )}
-          </div>
+          {/* Admin Link */}
+          {currentUser && (
+            <div className="hidden md:block">
+              <Link
+                to="/admin"
+                className="text-white hover:text-purple-300 transition-colors duration-300 text-sm font-medium"
+              >
+                Admin
+              </Link>
+            </div>
+          )}
 
           {/* Mobile menu button */}
           <div className="md:hidden">
@@ -178,32 +112,14 @@ const Navbar = () => {
               </Link>
             );
           })}
-          <Link
-            to="/settings"
-            className="block px-3 py-2 text-base font-medium transition-colors duration-300 whitespace-nowrap text-white hover:bg-secondary"
-            onClick={() => setIsOpen(false)}
-          >
-            Settings
-          </Link>
           {currentUser && (
             <Link
               to="/admin"
               className="block px-3 py-2 text-base font-medium transition-colors duration-300 whitespace-nowrap text-white hover:bg-secondary"
               onClick={() => setIsOpen(false)}
             >
-              Admin Dashboard
+              Admin
             </Link>
-          )}
-          {currentUser && (
-            <button
-              onClick={() => {
-                handleLogout();
-                setIsOpen(false);
-              }}
-              className="block w-full text-left px-3 py-2 text-base font-medium transition-colors duration-300 whitespace-nowrap text-red-300 hover:bg-red-900/20"
-            >
-              Sign Out
-            </button>
           )}
         </div>
       </div>
