@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ServiceTimes from './components/ServiceTimes';
@@ -9,13 +9,11 @@ import ProtectedRoute from './components/ProtectedRoute';
 import DynamicEvents from './components/DynamicEvents';
 import DynamicSermons from './components/DynamicSermons';
 import DynamicAnnouncements from './components/DynamicAnnouncements';
+import Gallery from './components/Gallery';
 import { AuthProvider } from './contexts/AuthContext';
 import pastorAdeboye from './assets/DaddyGO.jpg'
 import pastorFolu from './assets/MummyGO.jpg'
 import pastorOdesola from './assets/asstGO.jpg'
-import praiseImg from './praiseImg.png'
-import youthImg from './youthImg.jpeg'
-import thanksgiving from './thanksgiving.jpg'
 
 // Animation Component Wrapper
 const AnimatedSection = ({ children, delay = 0, className = '' }) => {
@@ -434,6 +432,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/programs" element={<Programs />} />
+            <Route path="/gallery" element={<Gallery />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route 
