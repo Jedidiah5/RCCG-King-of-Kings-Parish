@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ServiceTimes from './components/ServiceTimes';
@@ -16,7 +16,13 @@ import pastorFolu from './assets/MummyGO.jpg'
 import pastorOdesola from './assets/asstGO.jpg'
 
 // Animation Component Wrapper
-const AnimatedSection = ({ children, delay = 0, className = '' }) => {
+interface AnimatedSectionProps {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+}
+
+const AnimatedSection = ({ children, delay = 0, className = '' }: AnimatedSectionProps) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -313,24 +319,6 @@ const Programs = () => (
   </div>
 );
 
-const Pastor = () => (
-  <div className="min-h-screen">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h1 className="text-4xl font-bold text-center mb-8">Our Pastor</h1>
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <div className="flex flex-col md:flex-row items-center gap-8">
-          <div className="w-64 h-64 bg-gray-200 rounded-full">
-            {/* Add pastor's image here */}
-          </div>
-          <div>
-            <h2 className="text-2xl font-semibold mb-4">Pastor's Name</h2>
-            <p className="text-gray-600">Add pastor's bio here</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-);
 
 const Contact = () => (
   <div className="min-h-screen pt-16">
@@ -424,7 +412,7 @@ function App() {
 
   return (
     <AuthProvider>
-      <Router>
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <div className="bg-gray-50 w-screen overflow-x-hidden">
           {isLoading && <LoadingAnimation />}
           <Navbar />
