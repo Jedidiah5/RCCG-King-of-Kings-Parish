@@ -12,10 +12,8 @@ const Hero = () => {
           opacity: 0.4,
         }}
       ></div>
-      {/* Blue background overlay (bg-primary) is already set on parent */}
-      {/* Black overlay */}
+      
       <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
-      {/* Hero content */}
       <div className="relative h-full flex items-center justify-center text-center text-white px-4 z-20">
         <div className="max-w-3xl">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
