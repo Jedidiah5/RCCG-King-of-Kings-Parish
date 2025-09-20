@@ -12,7 +12,12 @@ import {
   orderBy,
   serverTimestamp 
 } from 'firebase/firestore';
-import { db } from '../firebase/config';
+import { 
+  ref, 
+  uploadBytes, 
+  getDownloadURL 
+} from 'firebase/storage';
+import { db, storage } from '../firebase/config';
 
 const AdminDashboard = () => {
   const { currentUser, logout } = useAuth();
@@ -21,7 +26,9 @@ const AdminDashboard = () => {
   const [events, setEvents] = useState([]);
   const [sermons, setSermons] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
+  const [galleryImages, setGalleryImages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   // Form states
   const [eventForm, setEventForm] = useState({
@@ -42,6 +49,12 @@ const AdminDashboard = () => {
     title: '',
     content: '',
     priority: 'normal'
+  });
+  const [galleryForm, setGalleryForm] = useState({
+    title: '',
+    description: '',
+    category: 'Services',
+    image: null
   });
 
   useEffect(() => {
@@ -80,6 +93,15 @@ const AdminDashboard = () => {
         ...doc.data()
       }));
       setAnnouncements(announcementsData);
+
+      // Fetch gallery images
+      const galleryQuery = query(collection(db, 'gallery'), orderBy('createdAt', 'desc'));
+      const gallerySnapshot = await getDocs(galleryQuery);
+      const galleryData = gallerySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setGalleryImages(galleryData);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -170,6 +192,59 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleImageUpload = async (file) => {
+    if (!file) return null;
+    
+    try {
+      const imageRef = ref(storage, `gallery/${Date.now()}_${file.name}`);
+      const snapshot = await uploadBytes(imageRef, file);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      return downloadURL;
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      throw error;
+    }
+  };
+
+  const handleAddGalleryImage = async (e) => {
+    e.preventDefault();
+    if (!galleryForm.image) {
+      alert('Please select an image to upload');
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const imageUrl = await handleImageUpload(galleryForm.image);
+      
+      await addDoc(collection(db, 'gallery'), {
+        title: galleryForm.title,
+        description: galleryForm.description,
+        category: galleryForm.category,
+        imageUrl: imageUrl,
+        createdAt: serverTimestamp()
+      });
+      
+      setGalleryForm({ title: '', description: '', category: 'Services', image: null });
+      fetchData();
+    } catch (error) {
+      console.error('Error adding gallery image:', error);
+      alert('Error uploading image. Please try again.');
+    }
+    setUploading(false);
+  };
+
+  const handleDeleteGalleryImage = async (id) => {
+    if (window.confirm('Are you sure you want to delete this image?')) {
+      try {
+        await deleteDoc(doc(db, 'gallery', id));
+        fetchData();
+      } catch (error) {
+        console.error('Error deleting gallery image:', error);
+      }
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -208,7 +283,8 @@ const AdminDashboard = () => {
             {[
               { id: 'events', label: 'Events' },
               { id: 'sermons', label: 'Sermons' },
-              { id: 'announcements', label: 'Announcements' }
+              { id: 'announcements', label: 'Announcements' },
+              { id: 'gallery', label: 'Gallery' }
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -496,6 +572,115 @@ const AdminDashboard = () => {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* Gallery Tab */}
+        {activeTab === 'gallery' && (
+          <div className="space-y-8">
+            <div className="bg-white p-6 rounded-lg shadow">
+              <h2 className="text-xl font-semibold mb-4">Add New Gallery Image</h2>
+              <form onSubmit={handleAddGalleryImage} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Title</label>
+                    <input
+                      type="text"
+                      value={galleryForm.title}
+                      onChange={(e) => setGalleryForm({ ...galleryForm, title: e.target.value })}
+                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Category</label>
+                    <select
+                      value={galleryForm.category}
+                      onChange={(e) => setGalleryForm({ ...galleryForm, category: e.target.value })}
+                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
+                    >
+                      <option value="Services">Services</option>
+                      <option value="Leadership">Leadership</option>
+                      <option value="Events">Events</option>
+                      <option value="Community">Community</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Description</label>
+                  <textarea
+                    value={galleryForm.description}
+                    onChange={(e) => setGalleryForm({ ...galleryForm, description: e.target.value })}
+                    rows={3}
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Image</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setGalleryForm({ ...galleryForm, image: e.target.files[0] })}
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
+                    required
+                  />
+                  {galleryForm.image && (
+                    <div className="mt-2">
+                      <img
+                        src={URL.createObjectURL(galleryForm.image)}
+                        alt="Preview"
+                        className="w-32 h-32 object-cover rounded-md"
+                      />
+                    </div>
+                  )}
+                </div>
+                <button
+                  type="submit"
+                  disabled={uploading}
+                  className="bg-primary text-white px-4 py-2 rounded-md hover:bg-opacity-90 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {uploading ? 'Uploading...' : 'Add Image'}
+                </button>
+              </form>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow">
+              <h2 className="text-xl font-semibold mb-4">Current Gallery Images</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {galleryImages.map((image) => (
+                  <div key={image.id} className="border border-gray-200 rounded-lg overflow-hidden">
+                    <div className="aspect-square overflow-hidden">
+                      <img
+                        src={image.imageUrl}
+                        alt={image.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-semibold text-lg mb-2">{image.title}</h3>
+                      <p className="text-gray-600 text-sm mb-2">{image.description}</p>
+                      <div className="flex justify-between items-center">
+                        <span className="px-2 py-1 bg-primary text-white text-xs rounded-full">
+                          {image.category}
+                        </span>
+                        <button
+                          onClick={() => handleDeleteGalleryImage(image.id)}
+                          className="text-red-600 hover:text-red-800 text-sm"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {galleryImages.length === 0 && (
+                <div className="text-center py-8">
+                  <p className="text-gray-500">No gallery images uploaded yet.</p>
+                </div>
+              )}
             </div>
           </div>
         )}

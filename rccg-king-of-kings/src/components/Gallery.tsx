@@ -1,47 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { db } from '../firebase/config';
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [galleryImages, setGalleryImages] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Sample gallery images - you can replace these with actual church images
-  const galleryImages = [
-    {
-      id: 1,
-      src: '/src/assets/DaddyGO.jpg',
-      alt: 'Pastor Enoch Adejare Adeboye',
-      category: 'Leadership'
-    },
-    {
-      id: 2,
-      src: '/src/assets/MummyGO.jpg',
-      alt: 'Pastor Folu Adeboye',
-      category: 'Leadership'
-    },
-    {
-      id: 3,
-      src: '/src/assets/asstGO.jpg',
-      alt: 'Pastor Johnson Odesola',
-      category: 'Leadership'
-    },
-    {
-      id: 4,
-      src: '/src/praiseImg.png',
-      alt: 'Praise and Worship',
-      category: 'Services'
-    },
-    {
-      id: 5,
-      src: '/src/youthImg.jpeg',
-      alt: 'Youth Service',
-      category: 'Services'
-    },
-    {
-      id: 6,
-      src: '/src/thanksgiving.jpg',
-      alt: 'Thanksgiving Service',
-      category: 'Services'
+  useEffect(() => {
+    fetchGalleryImages();
+  }, []);
+
+  const fetchGalleryImages = async () => {
+    try {
+      const galleryQuery = query(collection(db, 'gallery'), orderBy('createdAt', 'desc'));
+      const gallerySnapshot = await getDocs(galleryQuery);
+      const galleryData = gallerySnapshot.docs.map(doc => ({
+        id: doc.id,
+        src: doc.data().imageUrl,
+        alt: doc.data().title,
+        category: doc.data().category,
+        description: doc.data().description
+      }));
+      setGalleryImages(galleryData);
+    } catch (error) {
+      console.error('Error fetching gallery images:', error);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
 
   const categories = ['All', 'Leadership', 'Services', 'Events', 'Community'];
 
@@ -58,6 +45,17 @@ const Gallery = () => {
   const closeModal = () => {
     setSelectedImage(null);
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen pt-16 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading gallery...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen pt-16">
