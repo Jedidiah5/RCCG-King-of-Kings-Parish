@@ -64,47 +64,49 @@ const AdminDashboard = () => {
     fetchData();
   }, [currentUser, navigate]);
 
+  const fetchCollection = async (name, orderField, direction = 'desc') => {
+    const snapshot = await getDocs(query(collection(db, name), orderBy(orderField, direction)));
+    return snapshot.docs.map((item) => ({
+      id: item.id,
+      ...item.data()
+    }));
+  };
+
   const fetchData = async () => {
     setLoading(true);
-    try {
-      // Fetch events
-      const eventsQuery = query(collection(db, 'events'), orderBy('date', 'desc'));
-      const eventsSnapshot = await getDocs(eventsQuery);
-      const eventsData = eventsSnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      setEvents(eventsData);
+    const results = await Promise.allSettled([
+      fetchCollection('events', 'date'),
+      fetchCollection('sermons', 'date'),
+      fetchCollection('announcements', 'createdAt'),
+      fetchCollection('gallery', 'createdAt')
+    ]);
 
-      // Fetch sermons
-      const sermonsQuery = query(collection(db, 'sermons'), orderBy('date', 'desc'));
-      const sermonsSnapshot = await getDocs(sermonsQuery);
-      const sermonsData = sermonsSnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      setSermons(sermonsData);
+    const [eventsResult, sermonsResult, announcementsResult, galleryResult] = results;
 
-      // Fetch announcements
-      const announcementsQuery = query(collection(db, 'announcements'), orderBy('createdAt', 'desc'));
-      const announcementsSnapshot = await getDocs(announcementsQuery);
-      const announcementsData = announcementsSnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      setAnnouncements(announcementsData);
-
-      // Fetch gallery images
-      const galleryQuery = query(collection(db, 'gallery'), orderBy('createdAt', 'desc'));
-      const gallerySnapshot = await getDocs(galleryQuery);
-      const galleryData = gallerySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      setGalleryImages(galleryData);
-    } catch (error) {
-      console.error('Error fetching data:', error);
+    if (eventsResult.status === 'fulfilled') {
+      setEvents(eventsResult.value);
+    } else {
+      console.error('Error fetching events:', eventsResult.reason);
     }
+
+    if (sermonsResult.status === 'fulfilled') {
+      setSermons(sermonsResult.value);
+    } else {
+      console.error('Error fetching sermons:', sermonsResult.reason);
+    }
+
+    if (announcementsResult.status === 'fulfilled') {
+      setAnnouncements(announcementsResult.value);
+    } else {
+      console.error('Error fetching announcements:', announcementsResult.reason);
+    }
+
+    if (galleryResult.status === 'fulfilled') {
+      setGalleryImages(galleryResult.value);
+    } else {
+      console.error('Error fetching gallery images:', galleryResult.reason);
+    }
+
     setLoading(false);
   };
 
@@ -229,7 +231,10 @@ const AdminDashboard = () => {
       fetchData();
     } catch (error) {
       console.error('Error adding gallery image:', error);
-      alert('Error uploading image. Please try again.');
+      const message = error?.code === 'storage/unauthorized' || error?.code === 'permission-denied'
+        ? 'Upload blocked by Firebase rules. Enable Storage, then allow signed-in writes to gallery/ in Storage rules and gallery in Firestore rules.'
+        : 'Error uploading image. Check Firebase Storage is enabled and your Storage/Firestore rules allow gallery writes.';
+      alert(message);
     }
     setUploading(false);
   };

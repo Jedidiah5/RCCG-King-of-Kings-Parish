@@ -25,30 +25,58 @@ Your Firebase admin system is now ready! Here's how to get started:
 
 ### 3. Firestore Security Rules
 
-Add these security rules to your Firestore database:
+In Firebase Console go to **Firestore Database → Rules**, paste this, then **Publish**.
+These rules also live in `firestore.rules`.
 
 ```javascript
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Allow read access to all collections for public content
     match /events/{document} {
       allow read: if true;
       allow write: if request.auth != null;
     }
-    
+
     match /sermons/{document} {
       allow read: if true;
       allow write: if request.auth != null;
     }
-    
+
     match /announcements/{document} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    match /gallery/{document} {
       allow read: if true;
       allow write: if request.auth != null;
     }
   }
 }
 ```
+
+### 3b. Firebase Storage Setup (required for gallery uploads)
+
+1. Firebase Console → **Build → Storage**
+2. Click **Get started** if Storage has not been created yet
+3. Open the **Rules** tab, paste this, then **Publish**.
+   These rules also live in `storage.rules`.
+
+```javascript
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /gallery/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null
+        && request.resource.size < 10 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+  }
+}
+```
+
+A browser CORS error on upload usually means Storage denied the request or Storage was never enabled. Publishing these rules after Storage is created fixes that.
 
 ### 4. Access Admin Dashboard
 
@@ -64,6 +92,7 @@ The admin dashboard allows you to:
 - **Events Management**: Add, edit, and delete upcoming events
 - **Sermons Management**: Add new sermon recordings with YouTube links
 - **Announcements**: Create priority announcements (normal, high, urgent)
+- **Gallery Management**: Upload, list, and delete gallery images
 
 ### 6. Content Display
 
