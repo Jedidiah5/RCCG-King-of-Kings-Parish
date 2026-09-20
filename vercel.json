@@ -1,0 +1,8 @@
+{
+  "installCommand": "npm install --prefix rccg-king-of-kings",
+  "buildCommand": "npm run build --prefix rccg-king-of-kings",
+  "outputDirectory": "rccg-king-of-kings/dist",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
