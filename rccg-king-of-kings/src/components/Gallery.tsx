@@ -1,11 +1,21 @@
-import { useState, useEffect } from 'react';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { db } from '../firebase/config';
+import PageBanner from './PageBanner';
+
+type GalleryImage = {
+  id: string;
+  src: string;
+  alt: string;
+  category: string;
+  description: string;
+};
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [galleryImages, setGalleryImages] = useState([]);
+  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
   useEffect(() => {
     fetchGalleryImages();
@@ -15,12 +25,12 @@ const Gallery = () => {
     try {
       const galleryQuery = query(collection(db, 'gallery'), orderBy('createdAt', 'desc'));
       const gallerySnapshot = await getDocs(galleryQuery);
-      const galleryData = gallerySnapshot.docs.map(doc => ({
-        id: doc.id,
-        src: doc.data().imageUrl,
-        alt: doc.data().title,
-        category: doc.data().category,
-        description: doc.data().description
+      const galleryData = gallerySnapshot.docs.map((item) => ({
+        id: item.id,
+        src: item.data().imageUrl,
+        alt: item.data().title,
+        category: item.data().category,
+        description: item.data().description
       }));
       setGalleryImages(galleryData);
     } catch (error) {
@@ -31,121 +41,96 @@ const Gallery = () => {
   };
 
   const categories = ['All', 'Leadership', 'Services', 'Events', 'Community'];
-
-  const [selectedCategory, setSelectedCategory] = useState('All');
-
-  const filteredImages = selectedCategory === 'All' 
-    ? galleryImages 
-    : galleryImages.filter(img => img.category === selectedCategory);
-
-  const openModal = (imageSrc: string) => {
-    setSelectedImage(imageSrc);
-  };
-
-  const closeModal = () => {
-    setSelectedImage(null);
-  };
+  const filteredImages = selectedCategory === 'All'
+    ? galleryImages
+    : galleryImages.filter((img) => img.category === selectedCategory);
 
   if (loading) {
     return (
-      <div className="min-h-screen pt-16 flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center pt-16">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading gallery...</p>
+          <div className="mx-auto h-12 w-12 animate-spin rounded-full border-2 border-slate-200 border-t-primary" />
+          <p className="mt-4 text-sm font-medium text-slate-500">Loading gallery...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen pt-16">
-      {/* Header Section */}
-      <div className="bg-primary py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Photo Gallery</h1>
-          <p className="text-xl text-white opacity-90">
-            Capturing moments of faith, fellowship, and celebration
-          </p>
+    <div className="min-h-screen bg-[#f3f5f8]">
+      <PageBanner
+        title="Photo Gallery"
+        subtitle="Capturing moments of faith, fellowship, and celebration"
+      />
+
+      <div className="border-b border-slate-200 bg-white">
+        <div className="mx-auto flex max-w-7xl flex-wrap justify-center gap-2 px-4 py-6 sm:px-6 lg:px-8">
+          {categories.map((category) => (
+            <button
+              key={category}
+              type="button"
+              onClick={() => setSelectedCategory(category)}
+              className={`rounded-full px-5 py-2 text-sm font-semibold transition ${
+                selectedCategory === category
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              }`}
+            >
+              {category}
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* Category Filter */}
-      <div className="bg-white py-8 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap justify-center gap-4">
-            {categories.map((category) => (
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        {filteredImages.length > 0 ? (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {filteredImages.map((image) => (
               <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
-                  selectedCategory === category
-                    ? 'bg-primary text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+                key={image.id}
+                type="button"
+                className="group relative overflow-hidden rounded-2xl text-left shadow-sm"
+                onClick={() => setSelectedImage(image.src)}
               >
-                {category}
+                <div className="aspect-square overflow-hidden bg-slate-100">
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-4">
+                  <p className="font-medium text-white">{image.alt}</p>
+                  <p className="text-xs text-white/70">{image.category}</p>
+                </div>
               </button>
             ))}
           </div>
-        </div>
-      </div>
-
-      {/* Gallery Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredImages.map((image) => (
-            <div
-              key={image.id}
-              className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer"
-              onClick={() => openModal(image.src)}
-            >
-              <div className="aspect-square overflow-hidden">
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-              </div>
-              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="bg-white bg-opacity-90 rounded-full p-3">
-                    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
-                <p className="text-white font-medium text-sm">{image.alt}</p>
-                <p className="text-white text-xs opacity-75">{image.category}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {filteredImages.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No images found in this category.</p>
+        ) : (
+          <div className="rounded-2xl border border-dashed border-slate-200 bg-white px-6 py-16 text-center text-slate-500">
+            No images found in this category.
           </div>
         )}
       </div>
 
-      {/* Modal */}
       {selectedImage && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4">
-          <div className="relative max-w-4xl max-h-full">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative max-h-full max-w-4xl" onClick={(event) => event.stopPropagation()}>
             <button
-              onClick={closeModal}
-              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors duration-200"
+              type="button"
+              onClick={() => setSelectedImage(null)}
+              className="absolute -top-12 right-0 text-sm font-semibold text-white/80 hover:text-white"
             >
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              Close
             </button>
             <img
               src={selectedImage}
-              alt="Gallery Image"
-              className="max-w-full max-h-full object-contain rounded-lg"
+              alt="Gallery image"
+              className="max-h-[80vh] max-w-full rounded-2xl object-contain"
             />
           </div>
         </div>

@@ -1,45 +1,37 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
-    <div className="relative h-[600px] bg-primary overflow-hidden">
-      {/* Background image */}
+    <div className="relative isolate min-h-[620px] overflow-hidden bg-primary md:min-h-[700px]">
       <div
-        className="absolute inset-0 w-full h-full bg-cover bg-center z-0"
+        className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: "url('https://livingourbible.com/wp-content/uploads/2024/05/2017_1largeimg07_jan_2017_190307416.jpg')",
-          opacity: 0.4,
         }}
-      ></div>
-      
-      <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
-      <div className="relative h-full flex items-center justify-center text-center text-white px-4 z-20">
-        <div className="max-w-3xl">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Welcome to RCCG King of Kings Parish
-          </h1>
-          <p className="text-xl md:text-2xl mb-8">
-            A place of worship, fellowship, and spiritual growth
-          </p>
-          <div className="space-x-4">
-            <a
-              href="/programs"
-              className="bg-white text-primary px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300"
-            >
-              Our Programs
-            </a>
-            <Link
-              to="/contact"
-              className="border-2 border-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-primary transition duration-300"
-            >
-              Join Us
-            </Link>
-          </div>
+      />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0b1b33]/80 via-primary/75 to-[#0f2444]/85" />
+
+      <div className="relative z-10 mx-auto flex min-h-[620px] max-w-5xl flex-col items-center justify-center px-4 py-24 text-center text-white md:min-h-[700px]">
+        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/70">
+          Emerald Estate · Lokogoma · Abuja
+        </p>
+        <h1 className="mt-5 text-4xl font-semibold leading-tight tracking-tight md:text-6xl">
+          Welcome to RCCG King of Kings Parish
+        </h1>
+        <p className="mt-6 max-w-2xl text-lg text-white/80 md:text-xl">
+          A place of worship, fellowship, and spiritual growth. Join us as we seek God together.
+        </p>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <Link to="/programs" className="site-btn">
+            Our Programs
+          </Link>
+          <Link to="/contact" className="site-btn-outline">
+            Plan Your Visit
+          </Link>
         </div>
       </div>
     </div>
   );
 };
 
-export default Hero; 
+export default Hero;

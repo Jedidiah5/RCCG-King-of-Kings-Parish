@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { db } from '../firebase/config';
 
 const DynamicAnnouncements = () => {
@@ -11,9 +11,9 @@ const DynamicAnnouncements = () => {
       try {
         const announcementsQuery = query(collection(db, 'announcements'), orderBy('createdAt', 'desc'));
         const announcementsSnapshot = await getDocs(announcementsQuery);
-        const announcementsData = announcementsSnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
+        const announcementsData = announcementsSnapshot.docs.map((item) => ({
+          id: item.id,
+          ...item.data()
         }));
         setAnnouncements(announcementsData);
       } catch (error) {
@@ -27,8 +27,8 @@ const DynamicAnnouncements = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      <div className="flex items-center justify-center py-8">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-slate-200 border-t-primary" />
       </div>
     );
   }
@@ -37,34 +37,43 @@ const DynamicAnnouncements = () => {
     return null;
   }
 
+  const priorityStyles = {
+    urgent: 'border-red-200 bg-red-50 text-red-700',
+    high: 'border-amber-200 bg-amber-50 text-amber-700',
+    normal: 'border-emerald-200 bg-emerald-50 text-emerald-700'
+  };
+
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-      <h2 className="text-2xl font-bold text-center text-gray-900 mb-6">Announcements</h2>
-      <div className="space-y-4">
-        {announcements.map((announcement) => (
-          <div 
-            key={announcement.id} 
-            className={`p-4 rounded-lg border-l-4 ${
-              announcement.priority === 'urgent' ? 'border-red-500 bg-red-50' :
-              announcement.priority === 'high' ? 'border-yellow-500 bg-yellow-50' :
-              'border-green-500 bg-green-50'
-            }`}
-          >
-            <div className="flex items-center space-x-2 mb-2">
-              <h3 className="font-semibold text-lg">{announcement.title}</h3>
-              <span className={`px-2 py-1 text-xs rounded-full ${
-                announcement.priority === 'urgent' ? 'bg-red-100 text-red-800' :
-                announcement.priority === 'high' ? 'bg-yellow-100 text-yellow-800' :
-                'bg-green-100 text-green-800'
-              }`}>
-                {announcement.priority}
-              </span>
+    <section className="py-16">
+      <div className="site-card p-6 sm:p-8">
+        <div className="mb-6 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/70">Parish notice</p>
+          <h2 className="mt-2 text-2xl font-semibold text-slate-900">Announcements</h2>
+        </div>
+        <div className="space-y-4">
+          {announcements.map((announcement) => (
+            <div
+              key={announcement.id}
+              className={`rounded-2xl border-l-4 p-4 ${
+                announcement.priority === 'urgent' ? 'border-red-500 bg-red-50' :
+                announcement.priority === 'high' ? 'border-amber-500 bg-amber-50' :
+                'border-emerald-500 bg-emerald-50'
+              }`}
+            >
+              <div className="mb-2 flex flex-wrap items-center gap-2">
+                <h3 className="text-lg font-semibold text-slate-900">{announcement.title}</h3>
+                <span className={`rounded-full border px-2.5 py-0.5 text-[11px] font-semibold capitalize ${
+                  priorityStyles[announcement.priority] || priorityStyles.normal
+                }`}>
+                  {announcement.priority}
+                </span>
+              </div>
+              <p className="text-sm leading-6 text-slate-600">{announcement.content}</p>
             </div>
-            <p className="text-gray-700">{announcement.content}</p>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

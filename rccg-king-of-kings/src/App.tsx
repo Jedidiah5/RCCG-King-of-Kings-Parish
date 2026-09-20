@@ -10,6 +10,8 @@ import DynamicEvents from './components/DynamicEvents';
 import DynamicSermons from './components/DynamicSermons';
 import DynamicAnnouncements from './components/DynamicAnnouncements';
 import Gallery from './components/Gallery';
+import Footer from './components/Footer';
+import PageBanner from './components/PageBanner';
 import { AuthProvider } from './contexts/AuthContext';
 import pastorAdeboye from './assets/DaddyGO.jpg'
 import pastorFolu from './assets/MummyGO.jpg'
@@ -57,180 +59,115 @@ const Home = () => (
     <AnimatedSection>
       <Hero />
     </AnimatedSection>
-    
-    <AnimatedSection delay={300}>
+
+    <AnimatedSection delay={200}>
       <ServiceTimes />
     </AnimatedSection>
 
-    {/* Dynamic Announcements */}
-    <AnimatedSection delay={200} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <AnimatedSection delay={250} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <DynamicAnnouncements />
     </AnimatedSection>
-    
-    {/* Upcoming Events Section */}
-    <AnimatedSection delay={600} className="hidden md:block">
-      <div className="bg-gray-50 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Upcoming Events</h2>
+
+    <AnimatedSection delay={350}>
+      <section className="bg-[#f3f5f8] py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto mb-12 max-w-2xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/70">Calendar</p>
+            <h2 className="mt-2 text-3xl font-semibold text-slate-900">Upcoming Events</h2>
+            <p className="mt-3 text-slate-500">Join us for special gatherings and parish programs.</p>
+          </div>
           <DynamicEvents />
         </div>
-      </div>
+      </section>
     </AnimatedSection>
 
-    <style>
-      {`
-        @keyframes carousel {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-        .animate-carousel {
-          animation: carousel 30s linear infinite;
-          display: flex;
-          width: 200%;
-        }
-        .animate-carousel:hover {
-          animation-play-state: paused;
-        }
-      `}
-    </style>
-
-    {/* Latest Sermons Section */}
-    <AnimatedSection delay={900}>
-      <div className="bg-gray-50 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Recent Sermons</h2>
+    <AnimatedSection delay={450}>
+      <section className="bg-white py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto mb-12 max-w-2xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/70">Watch</p>
+            <h2 className="mt-2 text-3xl font-semibold text-slate-900">Recent Sermons</h2>
+            <p className="mt-3 text-slate-500">Catch up on messages from our worship services.</p>
+          </div>
           <DynamicSermons />
         </div>
-      </div>
+      </section>
     </AnimatedSection>
   </div>
 );
 
 const About = () => (
-  <div className="min-h-screen">
+  <div className="min-h-screen bg-[#f3f5f8]">
     <AnimatedSection>
-      {/* <div className="relative h-[400px] bg-primary">
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative h-full flex items-center justify-center text-center text-white px-4">
-          <h1 className="text-4xl md:text-5xl font-bold">About Us</h1>
-        </div>
-      </div> */}
-          <div className="relative h-[400px] bg-primary overflow-hidden">
-      {/* Background image */}
-      <div
-        className="absolute inset-0 w-full h-full bg-cover bg-center z-0"
-        style={{
-          backgroundImage: "url('https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSZ1AgxqtUBaCEBrRwtKTZoIQjLCU5VGAglt5JYJW1iDnSiBMbVt9Y7ifiaFU70MZh4lPiZhaYfoO-MJIIxPf00-w')",
-          opacity: 0.4,
-        }}
-      ></div>
-      {/* Blue background overlay (bg-primary) is already set on parent */}
-      {/* Black overlay */}
-      <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative h-full flex items-center justify-center text-center text-white px-4">
-          <h1 className="text-4xl md:text-5xl font-bold">About Us</h1>
-        </div>
-    </div>
+      <PageBanner
+        title="About Us"
+        subtitle="The story, mission, and leadership of RCCG King of Kings Parish"
+        image="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSZ1AgxqtUBaCEBrRwtKTZoIQjLCU5VGAglt5JYJW1iDnSiBMbVt9Y7ifiaFU70MZh4lPiZhaYfoO-MJIIxPf00-w"
+      />
     </AnimatedSection>
 
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <AnimatedSection delay={300}>
-          <div className="bg-white p-8 rounded-lg shadow-md">
-            <h2 className="text-3xl font-bold text-primary mb-6">Our Story</h2>
-            <p className="text-gray-600 mb-4">
-              The Redeemed Christian Church of God (RCCG) was founded in 1952 by Reverend Josiah Olufemi Akindayomi in Nigeria.
-               Akindayomi, after a spiritual awakening, established the church based on a divine revelation and a covenant with God.
-                The church's name was also revealed to Akindayomi in a vision. RCCG has since grown significantly, expanding both within Nigeria and internationally. 
-            </p>
-            <p className="text-gray-600">
-            Early Years:
-            The church initially met at 9 Willoughby Street, Lagos, and later relocated to 
-            its current headquarters at 1-5 Redemption Way, Ebute-Metta, Lagos. 
-            </p>
-            <p className="text-gray-600">
-            Leadership:
-            In the 1970s, Akindayomi appointed Pastor Enoch Adejare 
-            Adeboye as his successor, who became the General Overseer and
-             led the church to significant growth and international expansion. 
-            </p>
-            <p className="text-gray-600">
-            Growth and Expansion:
-            RCCG has grown to include tens of thousands of parishes in Nigeria and branches in over a hundred countries. 
-            </p>
+    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <AnimatedSection delay={200}>
+          <div className="site-card h-full p-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary/70">Our story</p>
+            <h2 className="mt-2 text-2xl font-semibold text-slate-900">How RCCG began</h2>
+            <div className="mt-5 space-y-4 text-sm leading-7 text-slate-600">
+              <p>
+                The Redeemed Christian Church of God (RCCG) was founded in 1952 by Reverend Josiah Olufemi Akindayomi in Nigeria.
+                After a spiritual awakening, he established the church based on a divine revelation and a covenant with God.
+                The church's name was also revealed to Akindayomi in a vision. RCCG has since grown significantly, expanding both within Nigeria and internationally.
+              </p>
+              <p>
+                <span className="font-semibold text-slate-800">Early years:</span> The church initially met at 9 Willoughby Street, Lagos, and later relocated to its current headquarters at 1-5 Redemption Way, Ebute-Metta, Lagos.
+              </p>
+              <p>
+                <span className="font-semibold text-slate-800">Leadership:</span> In the 1970s, Akindayomi appointed Pastor Enoch Adejare Adeboye as his successor, who became the General Overseer and led the church to significant growth and international expansion.
+              </p>
+              <p>
+                <span className="font-semibold text-slate-800">Growth:</span> RCCG has grown to include tens of thousands of parishes in Nigeria and branches in over a hundred countries.
+              </p>
+            </div>
           </div>
         </AnimatedSection>
 
-        <AnimatedSection delay={600}>
-          <div className="bg-white p-8 rounded-lg shadow-md">
-            <h2 className="text-3xl font-bold text-primary mb-6">Our Mission & Vision</h2>
-            <p className="text-gray-600 mb-4">
-            The missions for the Redeemed Christian Church of God Worldwide are:
+        <AnimatedSection delay={350}>
+          <div className="site-card h-full p-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary/70">Mission & vision</p>
+            <h2 className="mt-2 text-2xl font-semibold text-slate-900">What we pursue</h2>
+            <p className="mt-5 text-sm text-slate-500">
+              The missions of the Redeemed Christian Church of God Worldwide are:
             </p>
-            <div className="space-y-4">
-              <div className="flex items-start">
-                <div className="flex-shrink-0 h-6 w-6 text-primary">
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
+            <div className="mt-5 space-y-3">
+              {[
+                'To make heaven',
+                'To take as many people with us',
+                'To have a member of RCCG in every family of all nations',
+                'To accomplish No. 1 above, holiness will be our lifestyle',
+                'To accomplish No. 2 and 3 above, we will plant churches within five minutes walking distance in every city and town of developing countries and within five minutes driving distance in every city and town of developed countries.',
+                'We will pursue these objectives until every Nation in the world is reached for the Lord Jesus Christ'
+              ].map((item) => (
+                <div key={item} className="flex items-start">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                  <p className="ml-3 text-sm leading-6 text-slate-600">{item}</p>
                 </div>
-                <p className="ml-3 text-gray-600">To make heaven</p>
-              </div>
-              <div className="flex items-start">
-                <div className="flex-shrink-0 h-6 w-6 text-primary">
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <p className="ml-3 text-gray-600">To take as many people with us</p>
-              </div>
-              <div className="flex items-start">
-                <div className="flex-shrink-0 h-6 w-6 text-primary">
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <p className="ml-3 text-gray-600">To have a member of RCCG in every family of all nations</p>
-              </div>
-              <div className="flex items-start">
-                <div className="flex-shrink-0 h-6 w-6 text-primary">
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <p className="ml-3 text-gray-600">To accomplish No. 1 above, holiness will be our lifestyle</p>
-              </div>
-              <div className="flex items-start">
-                <div className="flex-shrink-0 h-6 w-6 text-primary">
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <p className="ml-3 text-gray-600">To accomplish No. 2 and 3 above, we will plant churches within five minutes walking 
-                  distance in every city and town of developing countries and within five minutes driving distance in every city and town 
-                  of developed countries.</p>
-              </div>
-              <div className="flex items-start">
-                <div className="flex-shrink-0 h-6 w-6 text-primary">
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <p className="ml-3 text-gray-600">We will pursue these objectives until every Nation in the world is reached for the Lord Jesus Christ</p>
-              </div>
+              ))}
             </div>
           </div>
         </AnimatedSection>
       </div>
 
-      <AnimatedSection delay={900}>
+      <AnimatedSection delay={500}>
         <div className="mt-16">
-          <h2 className="text-3xl font-bold text-center text-primary mb-12">Our Leadership Team</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="mx-auto mb-10 max-w-2xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/70">Leadership</p>
+            <h2 className="mt-2 text-3xl font-semibold text-slate-900">Our Leadership Team</h2>
+          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {[
               {
                 name: "Pastor Enoch Adejare Adeboye",
@@ -251,17 +188,17 @@ const About = () => (
                 image: pastorOdesola
               }
             ].map((member, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-md text-center">
-                <div className="w-32 h-32 mx-auto bg-gray-200 rounded-full mb-4 overflow-hidden">
-                  <img 
-                    src={member.image} 
+              <div key={index} className="site-card p-6 text-center">
+                <div className="mx-auto mb-4 h-32 w-32 overflow-hidden rounded-full bg-slate-200 ring-4 ring-primary/10">
+                  <img
+                    src={member.image}
                     alt={member.name}
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover"
                   />
                 </div>
-                <h3 className="text-xl font-semibold text-primary mb-2">{member.name}</h3>
-                <p className="text-gray-600 mb-2">{member.position}</p>
-                <p className="text-gray-500 text-sm">{member.description}</p>
+                <h3 className="text-lg font-semibold text-slate-900">{member.name}</h3>
+                <p className="mt-1 text-sm font-medium text-primary">{member.position}</p>
+                <p className="mt-3 text-sm leading-6 text-slate-500">{member.description}</p>
               </div>
             ))}
           </div>
@@ -271,132 +208,161 @@ const About = () => (
   </div>
 );
 
-const Programs = () => (
-  <div className="min-h-screen pt-16">
-    <AnimatedSection>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-4xl font-bold text-center mb-8 text-secondary">Our Programs</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <AnimatedSection delay={300}>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
-              <h2 className="text-2xl font-bold mb-4 text-primary">Sunday Service</h2>
-              <p className="text-gray-600">Sunday school starts around 7am, the main sercice begins around 9 and ends 11am.</p>
-            </div>
-          </AnimatedSection>
-          <AnimatedSection delay={600}>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
-              <h2 className="text-2xl font-bold mb-4 text-primary">Digging deep</h2>
-              <p className="text-gray-600">We come together to dig deep into the word of God as you attend may you be blessed.</p>
-            </div>
-          </AnimatedSection>
-          <AnimatedSection delay={900}>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
-              <h2 className="text-2xl font-bold mb-4 text-primary">Faith clinic</h2>
-              <p className="text-gray-600">We come together to pray on behalf of our nation and the church as you attend may you be blessed.</p>
-            </div>
-          </AnimatedSection>
-          <AnimatedSection delay={1200}>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
-              <h2 className="text-2xl font-bold mb-4 text-primary">Extravagant Praise</h2>
-              <p className="text-gray-600">Once a month on the 3rd thursday we come to praise and give thanks to God</p>
-            </div>
-          </AnimatedSection>
-          <AnimatedSection delay={1500}>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
-              <h2 className="text-2xl font-bold mb-4 text-primary">Youth Service</h2>
-              <p className="text-gray-600">We come together to dig deep into the word of God as you attend may you be blessed.</p>
-            </div>
-          </AnimatedSection>
-          <AnimatedSection delay={1800}>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
-              <h2 className="text-2xl font-bold mb-4 text-primary">Thanksgiving Service</h2>
-              <p className="text-gray-600">We come together to dig deep into the word of God as you attend may you be blessed.</p>
-            </div>
-          </AnimatedSection>
+const Programs = () => {
+  const programs = [
+    {
+      name: 'Sunday Service',
+      time: 'Sunday · 7:00 AM school · 9:00–11:00 AM service',
+      description: 'Sunday school starts around 7am. The main service begins around 9 and ends at 11am.'
+    },
+    {
+      name: 'Digging Deep',
+      time: 'Tuesdays · 5:00–6:00 PM',
+      description: 'We come together to dig deep into the word of God. As you attend, may you be blessed.'
+    },
+    {
+      name: 'Faith Clinic',
+      time: 'Fridays · 5:00–6:00 PM',
+      description: 'We come together to pray on behalf of our nation and the church. As you attend, may you be blessed.'
+    },
+    {
+      name: 'Extravagant Praise',
+      time: '3rd Thursday of the month',
+      description: 'Once a month on the 3rd Thursday we come to praise and give thanks to God.'
+    },
+    {
+      name: 'Youth Service',
+      time: 'Youth gathering',
+      description: 'Young people gather to worship, study the word, and grow together in faith.'
+    },
+    {
+      name: 'Thanksgiving Service',
+      time: 'Special Sunday',
+      description: 'A time to give thanks to God for His goodness over our families and the parish.'
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-[#f3f5f8]">
+      <AnimatedSection>
+        <PageBanner
+          title="Our Programs"
+          subtitle="Weekly services and special gatherings for the whole family"
+        />
+      </AnimatedSection>
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {programs.map((program, index) => (
+            <AnimatedSection key={program.name} delay={150 + index * 80}>
+              <div className="site-card h-full p-6 transition hover:-translate-y-0.5 hover:shadow-md">
+                <p className="inline-flex rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                  {program.time}
+                </p>
+                <h2 className="mt-4 text-xl font-semibold text-slate-900">{program.name}</h2>
+                <p className="mt-2 text-sm leading-6 text-slate-500">{program.description}</p>
+              </div>
+            </AnimatedSection>
+          ))}
         </div>
       </div>
-    </AnimatedSection>
-  </div>
-);
+    </div>
+  );
+};
 
 
-const Contact = () => (
-  <div className="min-h-screen pt-16">
-    <AnimatedSection>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-4xl font-bold text-center mb-8">Contact Us</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <AnimatedSection delay={300}>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-              <h2 className="text-2xl font-semibold mb-4">Get in Touch</h2>
-              <form className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                  <input 
-                    type="text" 
-                    placeholder="Enter your full name"
-                    className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20 transition duration-200 ease-in-out" 
-                  />
+const Contact = () => {
+  const [sent, setSent] = useState(false);
+
+  return (
+    <div className="min-h-screen bg-[#f3f5f8]">
+      <AnimatedSection>
+        <PageBanner
+          title="Contact Us"
+          subtitle="We would love to welcome you. Send a message or visit us in Lokogoma."
+        />
+      </AnimatedSection>
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <AnimatedSection delay={200}>
+            <div className="site-card p-6 sm:p-8">
+              <h2 className="text-2xl font-semibold text-slate-900">Get in touch</h2>
+              <p className="mt-2 text-sm text-slate-500">Share your name and how we can pray with you or help you visit.</p>
+              {sent ? (
+                <div className="mt-8 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-6 text-sm text-emerald-800">
+                  Thank you. Your message has been noted. Please also call or email us if you need a quicker response.
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                  <input 
-                    type="email" 
-                    placeholder="Enter your email address"
-                    className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20 transition duration-200 ease-in-out" 
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                  <input 
-                    type="tel" 
-                    placeholder="Enter your phone number"
-                    className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20 transition duration-200 ease-in-out" 
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                  <textarea 
-                    rows={4} 
-                    placeholder="Type your message here..."
-                    className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20 transition duration-200 ease-in-out resize-none"
-                  ></textarea>
-                </div>
-                <button 
-                  type="submit" 
-                  className="w-full bg-primary text-white py-3 px-6 rounded-lg font-medium hover:bg-secondary transform hover:scale-[1.02] transition duration-200 ease-in-out shadow-md hover:shadow-lg"
+              ) : (
+                <form
+                  className="mt-6 space-y-5"
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                    setSent(true);
+                  }}
                 >
-                  Send Message
-                </button>
-              </form>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700">Name</label>
+                    <input type="text" required placeholder="Enter your full name" className="site-field" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700">Email</label>
+                    <input type="email" required placeholder="Enter your email address" className="site-field" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700">Phone number</label>
+                    <input type="tel" placeholder="Enter your phone number" className="site-field" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700">Message</label>
+                    <textarea rows={4} required placeholder="Type your message here..." className="site-field resize-none" />
+                  </div>
+                  <button type="submit" className="site-btn-primary w-full py-3">
+                    Send message
+                  </button>
+                </form>
+              )}
             </div>
           </AnimatedSection>
-          <AnimatedSection delay={600}>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-              <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
-              <div className="space-y-4">
-                <a 
-                  href="https://www.google.com/maps/search/?api=1&query=Emerald+Estate+Lokogoma+Abuja" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-primary transition-colors duration-200 flex items-center"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  Emerald Estate Lokogoma
-                </a>
-                <p className="text-gray-600">08036162680</p>
-                <p className="text-gray-600">rccgkingofkings@gmail.com</p>
+
+          <AnimatedSection delay={350}>
+            <div className="space-y-6">
+              <div className="site-card p-6 sm:p-8">
+                <h2 className="text-2xl font-semibold text-slate-900">Visit the parish</h2>
+                <div className="mt-6 space-y-5 text-sm">
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Emerald+Estate+Lokogoma+Abuja"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start text-slate-600 hover:text-primary"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="mr-3 mt-0.5 h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    Emerald Estate, Lokogoma, Abuja
+                  </a>
+                  <a href="tel:08036162680" className="flex items-center text-slate-600 hover:text-primary">
+                    <span className="mr-3 font-semibold text-primary">Call</span>
+                    08036162680
+                  </a>
+                  <a href="mailto:rccgkingofkings@gmail.com" className="flex items-center text-slate-600 hover:text-primary">
+                    <span className="mr-3 font-semibold text-primary">Email</span>
+                    rccgkingofkings@gmail.com
+                  </a>
+                </div>
+              </div>
+              <div className="site-card p-6 sm:p-8">
+                <h3 className="text-lg font-semibold text-slate-900">Sunday service</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-500">
+                  Join us from 9:00 AM to 11:00 AM. Sunday school begins around 7:00 AM.
+                </p>
               </div>
             </div>
           </AnimatedSection>
         </div>
       </div>
-    </AnimatedSection>
-  </div>
-);
+    </div>
+  );
+};
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -405,7 +371,7 @@ function App() {
     // Simulate initial loading
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500);
+    }, 800);
 
     return () => clearTimeout(timer);
   }, []);
@@ -413,7 +379,7 @@ function App() {
   return (
     <AuthProvider>
       <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-        <div className="bg-gray-50 w-screen overflow-x-hidden">
+        <div className="w-screen overflow-x-hidden bg-[#f3f5f8]">
           {isLoading && <LoadingAnimation />}
           <Navbar />
           <Routes>
@@ -432,6 +398,7 @@ function App() {
               } 
             />
           </Routes>
+          <Footer />
         </div>
       </Router>
     </AuthProvider>

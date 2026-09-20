@@ -1,51 +1,44 @@
-import React from 'react';
-// import { CalendarIcon, ClockIcon, MapPinIcon } from '@heroicons/react/24/outline';
-
 const ServiceTimes = () => {
   const services = [
     {
       name: 'Sunday Service',
-      time: '9:00 AM - 11:00 AM',
+      time: '9:00 AM – 11:00 AM',
       description: 'Main worship service with praise, worship, and sermon',
     },
     {
-      name: 'Digging deep',
-      time: 'Tuesdays 5:00 PM - 6:00 PM',
+      name: 'Digging Deep',
+      time: 'Tuesdays 5:00 PM – 6:00 PM',
       description: 'In-depth study of God\'s word',
     },
     {
-      name: 'Faith clinic',
-      time: 'Friday 5:00 PM - 6:00 PM',
-      description: 'Prayer for the church and the Nation',
+      name: 'Faith Clinic',
+      time: 'Fridays 5:00 PM – 6:00 PM',
+      description: 'Prayer for the church and the nation',
     },
   ];
 
   return (
-    <div className="bg-white py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Service Times</h2>
+    <section className="bg-white py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto mb-12 max-w-2xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/70">This week</p>
+          <h2 className="mt-2 text-3xl font-semibold text-slate-900">Service Times</h2>
+          <p className="mt-3 text-slate-500">Come worship with us in Emerald Estate, Lokogoma.</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {services.map((service) => (
-            <div
-              key={service.name}
-              className="bg-gray-50 rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300"
-            >
-              <h3 className="text-xl font-semibold text-primary mb-4">{service.name}</h3>
-              <div className="space-y-4">
-                <div className="flex items-center text-gray-600">
-                  {/* <ClockIcon className="h-5 w-5 mr-2" /> */}
-                  <span>{service.time}</span>
-                </div>
-                <p className="text-gray-600">{service.description}</p>
-              </div>
+            <div key={service.name} className="site-card p-6 transition hover:-translate-y-0.5 hover:shadow-md">
+              <p className="inline-flex rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                {service.time}
+              </p>
+              <h3 className="mt-4 text-xl font-semibold text-slate-900">{service.name}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-500">{service.description}</p>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default ServiceTimes; 
+export default ServiceTimes;

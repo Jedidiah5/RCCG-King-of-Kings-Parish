@@ -1,8 +1,5 @@
-import React from 'react';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { BuildingOffice2Icon } from '@heroicons/react/24/solid';
 import { useAuth } from '../contexts/AuthContext';
 import logo from '../logo.png';
 
@@ -24,92 +21,75 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-primary text-white shadow-lg w-full overflow-x-hidden z-50">
-      <div className="w-full px-2 sm:px-4 md:px-6 lg:px-8 relative">
-        <div className="flex items-center justify-between h-16 relative">
-          <div className="flex items-center z-10">
-            <Link to="/" className="text-white hover:text-purple-300 transition-colors duration-300">
-              <img src={logo} alt="RCCG Logo" className="h-7 w-7 object-contain rounded-full" />
-            </Link>
-          </div>
-          
-          {/* Desktop Menu */}
-          <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <div className="flex items-baseline space-x-2 sm:space-x-4">
-              {navLinks.map((link) => {
-                const isActive = location.pathname === link.path;
-                return (
-                  <Link
-                    key={link.name}
-                    to={link.path}
-                    className={`relative px-2 sm:px-3 py-2 text-sm font-medium transition-colors duration-300 whitespace-nowrap ${
-                      isActive ? '' : 'text-white hover:text-white'
-                    }`}
-                  >
-                    {link.name}
-                    <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-current transform transition-transform duration-300 origin-left ${
-                      isActive ? 'scale-x-100' : 'scale-x-0 hover:scale-x-100'
-                    }`}></span>
-                  </Link>
-                );
-              })}
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-primary/95 text-white shadow-lg backdrop-blur">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between">
+          <Link to="/" className="flex items-center gap-2.5 text-white">
+            <img src={logo} alt="RCCG Logo" className="h-9 w-9 rounded-full bg-white/10 object-contain p-0.5" />
+            <div className="hidden leading-tight sm:block">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-white/60">RCCG</p>
+              <p className="text-sm font-semibold">King of Kings</p>
             </div>
+          </Link>
+
+          <div className="hidden items-center gap-1 md:flex">
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.path;
+              return (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className={`rounded-full px-3 py-2 text-sm font-medium transition ${
+                    isActive
+                      ? 'bg-white/15 text-white'
+                      : 'text-white/75 hover:bg-white/10 hover:text-white'
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
           </div>
 
-          {/* Admin Link */}
-          {currentUser && (
-            <div className="hidden md:block">
-              <Link
-                to="/admin"
-                className="text-white hover:text-purple-300 transition-colors duration-300 text-sm font-medium"
-              >
+          <div className="hidden items-center gap-3 md:flex">
+            {currentUser && (
+              <Link to="/admin" className="text-sm font-medium text-white/80 hover:text-white">
                 Admin
               </Link>
-            </div>
-          )}
-
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-white bg-transparent border-none shadow-none focus:outline-none focus:ring-0 active:bg-transparent active:shadow-none transition-all duration-300"
-              style={{ background: 'transparent', boxShadow: 'none', border: 'none' }}
+            )}
+            <Link
+              to="/contact"
+              className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-primary hover:bg-slate-100"
             >
-              <div className="relative w-6 h-6 bg-transparent" style={{ background: 'transparent' }}>
-                <div className={`absolute inset-0 transition-all duration-300 transform ${
-                  isOpen ? 'rotate-45 translate-y-0' : '-translate-y-1.5'
-                }`}>
-                  <div className="w-6 h-0.5 bg-white transform transition-all duration-300"></div>
-                </div>
-                <div className={`absolute inset-0 transition-all duration-300 transform ${
-                  isOpen ? 'opacity-0' : 'opacity-100'
-                }`}>
-                  <div className="w-6 h-0.5 bg-white transform transition-all duration-300"></div>
-                </div>
-                <div className={`absolute inset-0 transition-all duration-300 transform ${
-                  isOpen ? '-rotate-45 translate-y-0' : 'translate-y-1.5'
-                }`}>
-                  <div className="w-6 h-0.5 bg-white transform transition-all duration-300"></div>
-                </div>
-              </div>
-            </button>
+              Join Us
+            </Link>
           </div>
+
+          <button
+            type="button"
+            onClick={() => setIsOpen(!isOpen)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl text-white md:hidden"
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          >
+            <div className="relative h-5 w-5">
+              <span className={`absolute left-0 h-0.5 w-5 bg-white transition ${isOpen ? 'top-2 rotate-45' : 'top-0.5'}`} />
+              <span className={`absolute left-0 top-2 h-0.5 w-5 bg-white transition ${isOpen ? 'opacity-0' : 'opacity-100'}`} />
+              <span className={`absolute left-0 h-0.5 w-5 bg-white transition ${isOpen ? 'top-2 -rotate-45' : 'top-3.5'}`} />
+            </div>
+          </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <div className={`md:hidden bg-primary w-full fixed top-16 left-0 z-50 transition-all duration-300 transform ${
-        isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'
-      }`}>
-        <div className="px-2 pt-2 pb-3 space-y-1">
+      <div className={`border-t border-white/10 bg-primary md:hidden ${isOpen ? 'block' : 'hidden'}`}>
+        <div className="space-y-1 px-4 py-3">
           {navLinks.map((link) => {
             const isActive = location.pathname === link.path;
             return (
               <Link
                 key={link.name}
                 to={link.path}
-                className={`block px-3 py-2 text-base font-medium transition-colors duration-300 whitespace-nowrap ${
-                  isActive ? 'text-purple-300' : 'text-white hover:bg-secondary'
+                className={`block rounded-xl px-3 py-2.5 text-base font-medium ${
+                  isActive ? 'bg-white/15 text-white' : 'text-white/80 hover:bg-white/10'
                 }`}
                 onClick={() => setIsOpen(false)}
               >
@@ -120,16 +100,23 @@ const Navbar = () => {
           {currentUser && (
             <Link
               to="/admin"
-              className="block px-3 py-2 text-base font-medium transition-colors duration-300 whitespace-nowrap text-white hover:bg-secondary"
+              className="block rounded-xl px-3 py-2.5 text-base font-medium text-white/80 hover:bg-white/10"
               onClick={() => setIsOpen(false)}
             >
               Admin
             </Link>
           )}
+          <Link
+            to="/contact"
+            className="mt-2 block rounded-xl bg-white px-3 py-2.5 text-center text-base font-semibold text-primary"
+            onClick={() => setIsOpen(false)}
+          >
+            Join Us
+          </Link>
         </div>
       </div>
     </nav>
   );
 };
 
-export default Navbar; 
+export default Navbar;
