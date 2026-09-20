@@ -65,7 +65,7 @@ const AdminLogin = () => {
           </p>
         </div>
 
-        <div className="flex items-center justify-center bg-[#f3f5f8] px-4 py-12 text-slate-900 sm:px-8">
+        <div className="flex items-center justify-center bg-[#f3f5f8] px-4 py-8 text-slate-900 sm:px-8 sm:py-12">
           <div className="w-full max-w-md">
             <div className="mb-8 flex items-center gap-3 lg:hidden">
               <img src={logo} alt="RCCG Logo" className="h-10 w-10 rounded-full object-contain" />
@@ -75,7 +75,7 @@ const AdminLogin = () => {
               </div>
             </div>
 
-            <div className="admin-card p-8">
+            <div className="admin-card p-5 sm:p-8">
               <p className="text-sm font-medium text-primary">Welcome back</p>
               <h2 className="mt-2 text-2xl font-semibold text-slate-900">Sign in to Admin</h2>
               <p className="mt-2 text-sm text-slate-500">

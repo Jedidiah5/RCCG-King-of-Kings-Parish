@@ -315,75 +315,81 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="admin-app min-h-screen">
+    <div className="admin-app min-h-screen overflow-x-hidden">
       <header className="sticky top-0 z-40 border-b border-white/10 bg-primary text-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3">
-            <img src={logo} alt="RCCG Logo" className="h-10 w-10 rounded-full object-contain bg-white/10 p-1" />
-            <div>
-              <p className="text-[11px] uppercase tracking-[0.22em] text-white/60">RCCG King of Kings</p>
-              <h1 className="text-lg font-semibold">Admin Dashboard</h1>
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-3 sm:gap-4 sm:px-6 sm:py-4 lg:px-8">
+          <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+            <img src={logo} alt="RCCG Logo" className="h-8 w-8 shrink-0 rounded-full bg-white/10 object-contain p-1 sm:h-10 sm:w-10" />
+            <div className="min-w-0">
+              <p className="hidden text-[11px] uppercase tracking-[0.22em] text-white/60 sm:block">RCCG King of Kings</p>
+              <h1 className="truncate text-base font-semibold sm:text-lg">Admin Dashboard</h1>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <Link to="/" className="admin-btn-secondary hidden bg-white/10 text-white border-white/15 hover:bg-white/15 sm:inline-flex">
-              View site
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <Link
+              to="/"
+              className="rounded-xl bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/20 sm:px-4 sm:text-sm"
+            >
+              Site
             </Link>
-            <div className="hidden items-center gap-3 rounded-full border border-white/10 bg-white/10 px-3 py-1.5 md:flex">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-sm font-semibold text-primary">
-                {userInitial}
-              </span>
-              <span className="max-w-[180px] truncate text-sm text-white/80">{currentUser?.email}</span>
-            </div>
-            <button onClick={handleLogout} className="rounded-xl bg-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/20">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-sm font-semibold text-primary">
+              {userInitial}
+            </span>
+            <span className="hidden max-w-[160px] truncate text-sm text-white/80 lg:inline">
+              {currentUser?.email}
+            </span>
+            <button
+              onClick={handleLogout}
+              className="rounded-xl bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/20 sm:px-4 sm:text-sm"
+            >
               Logout
             </button>
           </div>
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-8">
+      <main className="mx-auto max-w-7xl px-3 py-5 sm:px-6 sm:py-8 lg:px-8">
+        <div className="mb-5 sm:mb-8">
           <p className="text-sm font-medium text-primary">Content management</p>
-          <h2 className="mt-1 text-2xl font-semibold text-slate-900">Keep the parish website up to date</h2>
-          <p className="mt-2 max-w-2xl text-sm text-slate-500">
+          <h2 className="mt-1 text-xl font-semibold text-slate-900 sm:text-2xl">Keep the parish website up to date</h2>
+          <p className="mt-2 hidden max-w-2xl text-sm text-slate-500 sm:block">
             Add or remove events, sermons, announcements, and gallery photos. Published items appear on the public site.
           </p>
         </div>
 
-        <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mb-5 grid grid-cols-2 gap-3 sm:mb-8 sm:gap-4 lg:grid-cols-4">
           {stats.map((stat) => (
             <button
               key={stat.id}
               type="button"
               onClick={() => setActiveTab(stat.id)}
-              className={`admin-card p-5 text-left transition hover:-translate-y-0.5 hover:shadow-md ${
+              className={`admin-card p-3 text-left transition hover:-translate-y-0.5 hover:shadow-md sm:p-5 ${
                 activeTab === stat.id ? 'ring-2 ring-primary/20' : ''
               }`}
             >
-              <p className="text-sm font-medium text-slate-500">{stat.label}</p>
-              <p className="mt-2 text-3xl font-semibold text-slate-900">{stat.value}</p>
-              <p className="mt-1 text-xs text-slate-400">{stat.hint}</p>
+              <p className="text-xs font-medium text-slate-500 sm:text-sm">{stat.label}</p>
+              <p className="mt-1 text-2xl font-semibold text-slate-900 sm:mt-2 sm:text-3xl">{stat.value}</p>
+              <p className="mt-1 hidden text-xs text-slate-400 sm:block">{stat.hint}</p>
             </button>
           ))}
         </div>
 
-        <div className="mb-8 overflow-x-auto">
-          <div className="inline-flex min-w-full rounded-2xl border border-slate-200 bg-white p-1 shadow-sm sm:min-w-0">
+        <div className="mb-5 sm:mb-8">
+          <div className="grid grid-cols-2 gap-1 rounded-2xl border border-slate-200 bg-white p-1 shadow-sm sm:flex sm:min-w-0">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex flex-1 items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition ${
+                className={`flex items-center justify-center gap-1.5 rounded-xl px-2 py-2.5 text-xs font-semibold transition sm:flex-1 sm:gap-2 sm:px-4 sm:text-sm ${
                   activeTab === tab.id
                     ? 'bg-primary text-white shadow-sm'
                     : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800'
                 }`}
               >
-                {tab.label}
-                <span className={`rounded-full px-2 py-0.5 text-[11px] ${
+                <span className="truncate">{tab.label}</span>
+                <span className={`rounded-full px-1.5 py-0.5 text-[10px] sm:px-2 sm:text-[11px] ${
                   activeTab === tab.id ? 'bg-white/15 text-white' : 'bg-slate-100 text-slate-500'
                 }`}>
                   {tab.count}
@@ -395,7 +401,7 @@ const AdminDashboard = () => {
 
         {activeTab === 'events' && (
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-            <section className="admin-card p-6">
+            <section className="admin-card p-4 sm:p-6">
               <SectionHeader eyebrow="Create" title="Add new event" description="These appear in Upcoming Events on the homepage." />
               <form onSubmit={handleAddEvent} className="space-y-4">
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -457,21 +463,21 @@ const AdminDashboard = () => {
               </form>
             </section>
 
-            <section className="admin-card p-6">
+            <section className="admin-card p-4 sm:p-6">
               <SectionHeader eyebrow="Published" title="Current events" />
               <div className="space-y-4">
                 {events.map((event) => (
-                  <div key={event.id} className="flex gap-4 rounded-2xl border border-slate-200 p-4">
+                  <div key={event.id} className="flex flex-col gap-3 rounded-2xl border border-slate-200 p-4 sm:flex-row sm:gap-4">
                     {event.image ? (
-                      <img src={event.image} alt="" className="hidden h-20 w-20 rounded-xl object-cover sm:block" />
+                      <img src={event.image} alt="" className="h-36 w-full rounded-xl object-cover sm:h-20 sm:w-20" />
                     ) : (
                       <div className="hidden h-20 w-20 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-xs font-medium text-slate-400 sm:flex">
                         No image
                       </div>
                     )}
                     <div className="min-w-0 flex-1">
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                        <div className="min-w-0">
                           <h3 className="font-semibold text-slate-900">{event.title}</h3>
                           <p className="mt-1 text-sm text-slate-500">{event.description}</p>
                           <p className="mt-2 text-xs font-medium text-slate-400">
@@ -481,7 +487,7 @@ const AdminDashboard = () => {
                         <button
                           onClick={() => handleDeleteEvent(event.id)}
                           disabled={deletingId === event.id}
-                          className="admin-btn-danger"
+                          className="admin-btn-danger w-full shrink-0 sm:w-auto"
                         >
                           {deletingId === event.id ? 'Deleting...' : 'Delete'}
                         </button>
@@ -490,7 +496,7 @@ const AdminDashboard = () => {
                   </div>
                 ))}
                 {events.length === 0 && (
-                  <EmptyState title="No events yet" description="Add an event on the left to show it on the homepage." />
+                  <EmptyState title="No events yet" description="Add an event above to show it on the homepage." />
                 )}
               </div>
             </section>
@@ -499,7 +505,7 @@ const AdminDashboard = () => {
 
         {activeTab === 'sermons' && (
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-            <section className="admin-card p-6">
+            <section className="admin-card p-4 sm:p-6">
               <SectionHeader eyebrow="Create" title="Add new sermon" description="YouTube links appear in Recent Sermons." />
               <form onSubmit={handleAddSermon} className="space-y-4">
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -563,13 +569,13 @@ const AdminDashboard = () => {
               </form>
             </section>
 
-            <section className="admin-card p-6">
+            <section className="admin-card p-4 sm:p-6">
               <SectionHeader eyebrow="Published" title="Current sermons" />
               <div className="space-y-4">
                 {sermons.map((sermon) => (
                   <div key={sermon.id} className="rounded-2xl border border-slate-200 p-4">
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                      <div className="min-w-0">
                         <h3 className="font-semibold text-slate-900">{sermon.title}</h3>
                         <p className="mt-1 text-sm text-slate-500">{sermon.description}</p>
                         <p className="mt-2 text-xs font-medium text-slate-400">
@@ -587,7 +593,7 @@ const AdminDashboard = () => {
                       <button
                         onClick={() => handleDeleteSermon(sermon.id)}
                         disabled={deletingId === sermon.id}
-                        className="admin-btn-danger"
+                        className="admin-btn-danger w-full shrink-0 sm:w-auto"
                       >
                         {deletingId === sermon.id ? 'Deleting...' : 'Delete'}
                       </button>
@@ -604,7 +610,7 @@ const AdminDashboard = () => {
 
         {activeTab === 'announcements' && (
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-            <section className="admin-card p-6">
+            <section className="admin-card p-4 sm:p-6">
               <SectionHeader eyebrow="Create" title="Add announcement" description="Priority changes how it is highlighted on the homepage." />
               <form onSubmit={handleAddAnnouncement} className="space-y-4">
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -649,13 +655,13 @@ const AdminDashboard = () => {
               </form>
             </section>
 
-            <section className="admin-card p-6">
+            <section className="admin-card p-4 sm:p-6">
               <SectionHeader eyebrow="Published" title="Current announcements" />
               <div className="space-y-4">
                 {announcements.map((announcement) => (
                   <div key={announcement.id} className="rounded-2xl border border-slate-200 p-4">
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                      <div className="min-w-0">
                         <div className="mb-2 flex flex-wrap items-center gap-2">
                           <h3 className="font-semibold text-slate-900">{announcement.title}</h3>
                           <span className={`rounded-full border px-2.5 py-0.5 text-[11px] font-semibold capitalize ${
@@ -669,7 +675,7 @@ const AdminDashboard = () => {
                       <button
                         onClick={() => handleDeleteAnnouncement(announcement.id)}
                         disabled={deletingId === announcement.id}
-                        className="admin-btn-danger"
+                        className="admin-btn-danger w-full shrink-0 sm:w-auto"
                       >
                         {deletingId === announcement.id ? 'Deleting...' : 'Delete'}
                       </button>
@@ -686,9 +692,9 @@ const AdminDashboard = () => {
 
         {activeTab === 'gallery' && (
           <div className="space-y-6">
-            <section className="admin-card p-6">
+            <section className="admin-card p-4 sm:p-6">
               <SectionHeader eyebrow="Create" title="Add gallery image" description="Images are stored in Firebase Storage and shown on the Gallery page." />
-              <form onSubmit={handleAddGalleryImage} className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_220px]">
+              <form onSubmit={handleAddGalleryImage} className="grid gap-4 sm:gap-6 lg:grid-cols-[minmax(0,1fr)_220px]">
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div>
@@ -750,9 +756,9 @@ const AdminDashboard = () => {
 
                 <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
                   {imagePreview ? (
-                    <img src={imagePreview} alt="Preview" className="h-full min-h-[220px] w-full object-cover" />
+                    <img src={imagePreview} alt="Preview" className="h-full min-h-[160px] w-full object-cover sm:min-h-[220px]" />
                   ) : (
-                    <div className="flex min-h-[220px] items-center justify-center px-4 text-center text-sm text-slate-400">
+                    <div className="flex min-h-[140px] items-center justify-center px-4 text-center text-sm text-slate-400 sm:min-h-[220px]">
                       Image preview will appear here
                     </div>
                   )}
@@ -760,7 +766,7 @@ const AdminDashboard = () => {
               </form>
             </section>
 
-            <section className="admin-card p-6">
+            <section className="admin-card p-4 sm:p-6">
               <SectionHeader eyebrow="Published" title="Current gallery images" />
               {galleryImages.length > 0 ? (
                 <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">

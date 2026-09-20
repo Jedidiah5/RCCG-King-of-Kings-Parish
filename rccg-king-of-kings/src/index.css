@@ -28,7 +28,7 @@
   }
 
   .admin-field {
-    @apply mt-1.5 block w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15;
+    @apply mt-1.5 block w-full min-w-0 max-w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15;
   }
 
   .admin-label {
@@ -40,7 +40,7 @@
   }
 
   .admin-btn {
-    @apply inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#152c4d] disabled:cursor-not-allowed disabled:opacity-60;
+    @apply inline-flex w-full items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#152c4d] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto;
   }
 
   .admin-btn-secondary {
