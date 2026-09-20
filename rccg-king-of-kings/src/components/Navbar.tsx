@@ -19,6 +19,10 @@ const Navbar = () => {
     { name: 'Contact', path: '/contact' },
   ];
 
+  if (location.pathname.startsWith('/admin')) {
+    return null;
+  }
+
   return (
     <nav className="fixed top-0 left-0 right-0 bg-primary text-white shadow-lg w-full overflow-x-hidden z-50">
       <div className="w-full px-2 sm:px-4 md:px-6 lg:px-8 relative">
